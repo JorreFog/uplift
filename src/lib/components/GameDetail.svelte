@@ -5,9 +5,12 @@
     FAMILY_LABEL,
     PLATFORM_LABEL,
     latestFor,
+    presetsFor,
+    recommendedPreset,
     versionCmp,
     type Family,
     type Game,
+    type GamePresets,
   } from "../types";
   import VersionRail from "./VersionRail.svelte";
 
@@ -16,6 +19,49 @@
   // family -> version chosen on the rail
   let picked = $state<Record<string, string>>({});
   let confirmingAc = $state<{ family: Family; version: string } | null>(null);
+
+  // ---- driver preset overrides ----------------------------------------------
+  let presets = $state<GamePresets | null>(null);
+  let presetPick = $state<Record<string, number>>({});
+  let applyingPreset = $state(false);
+
+  function currentOverride(family: Family): number {
+    if (!presets) return 0;
+    return (family === "dlss" ? presets.sr : presets.rr) ?? 0;
+  }
+
+  $effect(() => {
+    const id = game.id;
+    presets = null;
+    presetPick = {};
+    api.getGamePresets(id).then((p) => {
+      if (id !== game.id) return;
+      presets = p;
+      // Default choice: the active override, else the recommended preset.
+      for (const family of ["dlss", "dlss_d"] as Family[]) {
+        const current = currentOverride(family);
+        presetPick[family] =
+          current !== 0
+            ? current
+            : recommendedPreset(app.library.changelogs, family) ?? 0;
+      }
+    }).catch(() => { presets = { available: false, exe: null, sr: null, rr: null }; });
+  });
+
+  async function applyPreset(family: Family) {
+    applyingPreset = true;
+    try {
+      presets = await api.setGamePreset(game.id, family, presetPick[family] ?? 0);
+      const opt = presetsFor(family)?.find((o) => o.value === presetPick[family]);
+      app.toast("ok", presetPick[family] === 0
+        ? `Cleared ${FAMILY_LABEL[family]} preset override`
+        : `${FAMILY_LABEL[family]} preset set to ${opt?.label ?? presetPick[family]}`);
+    } catch (e) {
+      app.toast("err", String(e));
+    } finally {
+      applyingPreset = false;
+    }
+  }
 
   const acFlag = $derived(game.anticheat); // "warn:EAC" | "block:..." | null
   const acBlocked = $derived(acFlag?.startsWith("block") ?? false);
@@ -135,6 +181,50 @@
         {/if}
       </div>
       <p class="dllpath mono">{dll.file_name}</p>
+
+      {#if presets?.available && presetsFor(dll.family)}
+        {@const presetOpts = presetsFor(dll.family)!}
+        {@const current = currentOverride(dll.family)}
+        {@const pick = presetPick[dll.family] ?? 0}
+        {@const recommended = recommendedPreset(app.library.changelogs, dll.family)}
+        <div class="preset-box">
+          <div class="preset-head">
+            <span>Driver preset</span>
+            {#if current !== 0}
+              <span class="override-tag">override active: {presetOpts.find((o) => o.value === current)?.label ?? current}</span>
+            {/if}
+          </div>
+          <div class="preset-controls">
+            <select bind:value={presetPick[dll.family]}>
+              {#each presetOpts as opt}
+                <option value={opt.value}>
+                  {opt.label}{opt.value === recommended ? " (recommended)" : ""}
+                </option>
+              {/each}
+            </select>
+            {#if pick !== current}
+              <button class="primary" disabled={applyingPreset} onclick={() => applyPreset(dll.family)}>
+                {applyingPreset ? "Applying…" : "Apply"}
+              </button>
+            {/if}
+            {#if current !== 0 && pick === current}
+              <button
+                class="ghost"
+                disabled={applyingPreset}
+                onclick={() => { presetPick[dll.family] = 0; applyPreset(dll.family); }}
+              >
+                Clear override
+              </button>
+            {/if}
+          </div>
+          <p class="preset-desc">
+            {presetOpts.find((o) => o.value === pick)?.desc}
+          </p>
+          {#if presets.exe}
+            <p class="preset-exe mono">applies to {presets.exe} via the NVIDIA driver profile</p>
+          {/if}
+        </div>
+      {/if}
 
       {#if releasesOf(dll.family).length > 0}
         <VersionRail
@@ -293,6 +383,33 @@
   }
   .dllpath { font-size: 11px; color: var(--faint); margin: 4px 0 6px; }
   .none { color: var(--faint); font-size: 12.5px; }
+
+  .preset-box {
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 10px 12px;
+    margin: 8px 0 10px;
+  }
+  .preset-head {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-size: 12.5px;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .override-tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--mint);
+    border: 1px solid rgba(111, 211, 166, 0.4);
+    border-radius: 6px;
+    padding: 1px 7px;
+  }
+  .preset-controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .preset-desc { color: var(--muted); font-size: 12.5px; margin: 6px 0 0; }
+  .preset-exe { color: var(--faint); font-size: 11px; margin: 4px 0 0; }
 
   .plan {
     margin-top: 12px;

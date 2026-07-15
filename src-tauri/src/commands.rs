@@ -1,6 +1,6 @@
 use crate::db::Db;
 use crate::models::*;
-use crate::{background, dll, downloads, remote, scanners, swap};
+use crate::{background, dll, downloads, presets, remote, scanners, swap};
 use std::path::Path;
 use tauri::{AppHandle, State};
 
@@ -225,6 +225,43 @@ pub fn restore_dll(db: State<Db>, game_id: i64, family: String) -> CmdResult<Lib
     }
     db.replace_dlls(game_id, &dlls).map_err(err)?;
     build_payload(&db)
+}
+
+/// Current driver preset overrides for a game (NVAPI DRS). Runs blocking —
+/// profile lookup walks the install dir for the exe.
+#[tauri::command]
+pub async fn get_game_presets(db: State<'_, Db>, game_id: i64) -> CmdResult<presets::GamePresets> {
+    let games = db.get_games().map_err(err)?;
+    let game = games.iter().find(|g| g.id == game_id).ok_or("game not found")?;
+    let dir = std::path::PathBuf::from(&game.install_dir);
+    tauri::async_runtime::spawn_blocking(move || presets::get_presets(&dir))
+        .await
+        .map_err(err)
+}
+
+/// Apply (or clear with value 0) a DLSS SR/RR preset override for a game.
+#[tauri::command]
+pub async fn set_game_preset(
+    db: State<'_, Db>,
+    game_id: i64,
+    family: String,
+    value: u32,
+) -> CmdResult<presets::GamePresets> {
+    let setting_id = match family.as_str() {
+        "dlss" => presets::SR_PRESET_ID,
+        "dlss_d" => presets::RR_PRESET_ID,
+        _ => return Err("presets exist only for DLSS and Ray Reconstruction".into()),
+    };
+    let games = db.get_games().map_err(err)?;
+    let game = games.iter().find(|g| g.id == game_id).ok_or("game not found")?;
+    let dir = std::path::PathBuf::from(&game.install_dir);
+    tauri::async_runtime::spawn_blocking(move || {
+        presets::set_preset(&dir, setting_id, value)?;
+        Ok::<_, anyhow::Error>(presets::get_presets(&dir))
+    })
+    .await
+    .map_err(err)?
+    .map_err(err)
 }
 
 #[tauri::command]

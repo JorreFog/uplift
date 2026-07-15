@@ -100,6 +100,64 @@ export const PLATFORM_LABEL: Record<Platform, string> = {
   manual: "Manual",
 };
 
+// ---- DLSS driver preset overrides (NVAPI DRS) -------------------------------
+
+export interface GamePresets {
+  available: boolean;
+  exe: string | null;
+  sr: number | null;
+  rr: number | null;
+}
+
+export const PRESET_LATEST = 0x00ffffff;
+
+export interface PresetOption {
+  value: number;
+  label: string;
+  desc: string;
+}
+
+/** DLSS (Super Resolution) render presets. */
+export const SR_PRESETS: PresetOption[] = [
+  { value: 0, label: "Driver default", desc: "No override — the game (or NVIDIA's own override) decides which preset runs." },
+  { value: 1, label: "Preset A", desc: "Legacy CNN model aimed at Performance modes; more ghosting than newer presets." },
+  { value: 2, label: "Preset B", desc: "Legacy CNN variant of A tuned for Ultra Performance." },
+  { value: 3, label: "Preset C", desc: "CNN favoring current-frame detail; crisp in fast motion but can shimmer." },
+  { value: 4, label: "Preset D", desc: "CNN; the old Quality-mode default. Very stable image, visible ghosting." },
+  { value: 5, label: "Preset E", desc: "The best CNN all-rounder; default from DLSS 3.7 onwards." },
+  { value: 6, label: "Preset F", desc: "CNN used for DLAA and Ultra Performance before 3.7." },
+  { value: 10, label: "Preset J", desc: "First transformer preset (DLSS 4): sharper fine detail, higher GPU cost." },
+  { value: 11, label: "Preset K", desc: "Refined transformer preset (DLSS 4) — the current community favourite." },
+  { value: PRESET_LATEST, label: "Latest", desc: "Always run the newest preset the installed DLL supports." },
+];
+
+/** Ray Reconstruction presets. */
+export const RR_PRESETS: PresetOption[] = [
+  { value: 0, label: "Driver default", desc: "No override — the game (or NVIDIA's own override) decides." },
+  { value: 4, label: "Preset D", desc: "CNN denoiser; the classic Ray Reconstruction model." },
+  { value: 5, label: "Preset E", desc: "Transformer denoiser (DLSS 4): cleaner reflections and GI, higher GPU cost." },
+  { value: PRESET_LATEST, label: "Latest", desc: "Always run the newest preset the installed DLL supports." },
+];
+
+export function presetsFor(family: Family): PresetOption[] | null {
+  if (family === "dlss") return SR_PRESETS;
+  if (family === "dlss_d") return RR_PRESETS;
+  return null;
+}
+
+/** Recommended preset for a family from the changelog database (newest entry
+ *  carrying a recommendation), as a DRS value — or null. */
+export function recommendedPreset(changelogs: ChangelogEntry[], family: Family): number | null {
+  const entries = changelogs
+    .filter((c) => c.family === family && c.recommended_preset)
+    .sort((a, b) => versionCmp(b.version, a.version));
+  const letter = entries[0]?.recommended_preset;
+  if (!letter) return null;
+  const value = letter.toUpperCase().charCodeAt(0) - 64; // A=1 … K=11
+  const options = presetsFor(family);
+  return options?.some((o) => o.value === value) ? value : null;
+}
+
 export function versionCmp(a: string, b: string): number {
   const pa = a.split(/[.,-]/).map((n) => parseInt(n) || 0);
   const pb = b.split(/[.,-]/).map((n) => parseInt(n) || 0);

@@ -1,69 +1,1293 @@
 {
-  "$comment": "Uplift releases manifest. Every entry carries the SHA-256 of the final DLL file; the app refuses to store a download whose hash does not match. The zips are hosted as assets of the 'dll-archive' GitHub release; upload new files there and add an entry here to publish a build.",
-  "releases": [
-    {
-      "family": "dlss",
-      "version": "310.7.0.0",
-      "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v310.7.0.0.zip",
-      "sha256": "1cdfdc957cb7fc9805500ca6793f607ef2d4dbd7c967feac70aca9caf382d0c0",
-      "zip_path": "nvngx_dlss.dll",
-      "release_date": "2026-05-15"
-    },
-    {
-      "family": "dlss",
-      "version": "310.6.0.0",
-      "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v310.6.0.0.zip",
-      "sha256": "4e86dad07a052a0672f231f98a11a463da99239ca73e154d8e27951b260b99a8",
-      "zip_path": "nvngx_dlss.dll",
-      "release_date": "2026-03-06"
-    },
-    {
-      "family": "dlss_g",
-      "version": "310.7.0.0",
-      "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_g_v310.7.0.0.zip",
-      "sha256": "0d33b5de65d60a943c33bd096d574297302b214a1c5baa6bcb74bc1150a608de",
-      "zip_path": "nvngx_dlssg.dll",
-      "release_date": "2026-05-06"
-    },
-    {
-      "family": "dlss_d",
-      "version": "310.7.0.0",
-      "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_d_v310.7.0.0.zip",
-      "sha256": "fd83687c98d00754ae8e26b5daa7dabfed04557113c69c9eddfe4b6f3acaf426",
-      "zip_path": "nvngx_dlssd.dll",
-      "release_date": "2026-05-14"
-    },
-    {
-      "family": "xess",
-      "version": "2.0.2.68",
-      "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/xess_v2.0.2.68.zip",
-      "sha256": "251659dd84a3e84de67c886a4186e01f3eca49b00641906fe38bb6b807e5d5b7",
-      "zip_path": "libxess.dll",
-      "release_date": "2025-10-17"
-    },
-    {
-      "family": "xess_fg",
-      "version": "1.3.1.78",
-      "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/xess_fg_v1.3.1.78.zip",
-      "sha256": "ec5e0c65e075570c6ede72618bb666d0be0c2e10b2ea9762c0fe8cb8e375ab27",
-      "zip_path": "libxess_fg.dll",
-      "release_date": "2026-03-31"
-    },
-    {
-      "family": "fsr",
-      "version": "1.0.2.38022",
-      "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/fsr_dx12_v1.0.2.38022.zip",
-      "sha256": "e27a4b58960d4fa008795a95b205dcd547af7dd0562e05c9ea9364cbaff3094a",
-      "zip_path": "amd_fidelityfx_dx12.dll",
-      "release_date": "2024-10-10"
-    },
-    {
-      "family": "fsr",
-      "version": "1.0.1.42386",
-      "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/fsr_vk_v1.0.1.42386.zip",
-      "sha256": "e0dee6262d100c3833b4e0b7dd488e5c4a6af05b43a9d505f9f0ac7e35daf8cb",
-      "zip_path": "amd_fidelityfx_vk.dll",
-      "release_date": "2025-06-09"
-    }
-  ]
+ "$comment": "Uplift releases manifest — every build in the community archive. Each entry carries the SHA-256 of the final DLL file; the app refuses any download whose hash does not match. Zips are assets of the dll-archive GitHub release.",
+ "releases": [
+  {
+   "family": "dlss",
+   "version": "310.7.0.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v310.7.0.0.zip",
+   "sha256": "1cdfdc957cb7fc9805500ca6793f607ef2d4dbd7c967feac70aca9caf382d0c0",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "2026-05-15"
+  },
+  {
+   "family": "dlss",
+   "version": "310.6.0.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v310.6.0.0.zip",
+   "sha256": "4e86dad07a052a0672f231f98a11a463da99239ca73e154d8e27951b260b99a8",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "2026-03-06"
+  },
+  {
+   "family": "dlss",
+   "version": "310.5.3.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v310.5.3.0.zip",
+   "sha256": "cb74fff91fcd5f72799b64b4e547c54858ddbeb1b2a09878474fecbbb760c559",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "2026-01-21"
+  },
+  {
+   "family": "dlss",
+   "version": "310.5.2.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v310.5.2.0.zip",
+   "sha256": "93211c63fd7434734b68532c7db7431c108f2d720b48ff1900408af397d3b7b6",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "2026-01-09"
+  },
+  {
+   "family": "dlss",
+   "version": "310.5.0.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v310.5.0.0.zip",
+   "sha256": "415caad13264b2d96a74f6ed3e204aedd6f3e304945aecae6036b2e56fcd2054",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "2025-12-20"
+  },
+  {
+   "family": "dlss",
+   "version": "310.4.0.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v310.4.0.0.zip",
+   "sha256": "6a1b1bfd111009ede953ba28268ee00c56223b0f9ceb707aa1ee7e17569febd6",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "2025-08-12"
+  },
+  {
+   "family": "dlss",
+   "version": "310.3.0.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v310.3.0.0.zip",
+   "sha256": "faa14a92f5c60b124147bbda8374837e1769e8f9e6301293d613ad753a22b599",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "2025-05-08"
+  },
+  {
+   "family": "dlss",
+   "version": "310.2.1.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v310.2.1.0.zip",
+   "sha256": "4e85cdbe0896aab5f12c29f0b66ae7e5d9622cfadac37aa9852acba8e4861f5a",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "310.1.0.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v310.1.0.0.zip",
+   "sha256": "ad3e9c07ee864e9702032459a59c6825166766c2cb75bd0318d5626595693bdb",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "3.8.10.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v3.8.10.0.zip",
+   "sha256": "89621e11738494356511604ae726f21c1bed1869735cc8949e9ddc8a8c2fd817",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "3.7.20.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v3.7.20.0.zip",
+   "sha256": "11786bf17315f0474e0a3df7ad360f1241256adab98cc4579936217ed764a66b",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "3.7.10.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v3.7.10.0.zip",
+   "sha256": "ba685453f689201997db726fb0d904e969bdd148ea9a58a56ba5c1ead86eeaf9",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "3.7.0.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v3.7.0.0.zip",
+   "sha256": "8bea8eee99861d0cdc9b8b90e1fb915f5d96750c2d575ed8d2417452105581df",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "3.6.0.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v3.6.0.0.zip",
+   "sha256": "acb4a7967059f155985b5e54c2fff55cdcf924ec8ccb674b2455a69d45c862a3",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "3.5.10.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v3.5.10.0.zip",
+   "sha256": "68c99e387767c23a4205c04746809443619fdc88c65a5b57687350a313211010",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "3.5.0.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v3.5.0.0.zip",
+   "sha256": "24b75e653065bfbd59bae9cef4c703eff810f0d7f11d6e0a3a6e7c1f9753f542",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "3.1.30.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v3.1.30.0.zip",
+   "sha256": "a3177741b245dd70a06d964cd7048bd1ced4f995ca9a18e0a83d64efd6493007",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "3.1.13.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v3.1.13.0.zip",
+   "sha256": "92b0e403a5bddfec763d4e2eac61bae59b088009d4bc7b0f5f6968a337f74eeb",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "3.1.11.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v3.1.11.0.zip",
+   "sha256": "6a12400beedef26ad8a3baca8dde2c6a5859942ce9ae14f78a07f7a87f883321",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "3.1.2.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v3.1.2.0.zip",
+   "sha256": "ae90ad61f885dcc7e3e905fffba38b48924aac835d73f81f018da5c33a141a16",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "3.1.1.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v3.1.1.0.zip",
+   "sha256": "84e161df5d6173f7110bd1c1146c2da933703215197cf59c7c3bd60488f50a65",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.5.1.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.5.1.0.zip",
+   "sha256": "0a9365fde830ab0a7edaf039343c03badecc5614b91fd1080c258308b04c2989",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.5.0.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.5.0.0.zip",
+   "sha256": "a7fa630a5807f47f152c9258188b0e6c03b9036ba930d322f838b1cdbc328131",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.4.13.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.4.13.0.zip",
+   "sha256": "7442dd9791c08719653d18ce5e73a2fcef2f30fecb4b0c42ef0b72eededf46f1",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.4.12.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.4.12.0.zip",
+   "sha256": "e75a5b1596bfb4c4f9dc8ee21b62e27c1e19ccbddec3b4936a27dd66ff5d363e",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.4.11.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.4.11.0.zip",
+   "sha256": "62fa69d669f3329569ce802a58e87aef980bc14e3e9f0856f9ed34994fde1fe2",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.4.6.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.4.6.0.zip",
+   "sha256": "6c0697f7b16a2af365dc9ed485f2bff8a726dc1e653b6f9748fd08bde56582b7",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.4.3.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.4.3.0.zip",
+   "sha256": "c2c9fb823bdc36f2dc86a416f974284d5243175ce0e68314d743e390c020c511",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.4.2.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.4.2.0.zip",
+   "sha256": "26215c31135110170d51ec2ef030adbed999ce739bf6e5b822a20963c6b954d8",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.4.0.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.4.0.0.zip",
+   "sha256": "596dde40d43edbb04e962d5d5ae1bba16ba25bdbe817ba55d38c0b4b6462eff7",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.3.11.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.3.11.0.zip",
+   "sha256": "4dba6643a62c2644cec7f68174228df634522fa66546601c41f2061990c22e96",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.3.9.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.3.9.0.zip",
+   "sha256": "c89ce5ab0c30e518d1ebe2cc157a414e06716e044ac9dfbaa3ac310cb538a0cb",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.3.7.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.3.7.0.zip",
+   "sha256": "309c6d12c3890db03888242253ddd81cf6856d517ef537f8629759bbf1d38afc",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.3.5.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.3.5.0.zip",
+   "sha256": "aa8f8ce1a4b18bed1a2b139bbf1ddfab5fce3d5777703de0f4de37e09634c84f",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.3.4.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.3.4.0.zip",
+   "sha256": "79a41d60e556a056a20005dbbe552ceef2707d02be1c630d9d2cdfb006b4d4b2",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.3.3.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.3.3.0.zip",
+   "sha256": "4dc687979d46c0a23cf485a4c4674a9de7b4b09bf66a80e9e62cd869f00a64c4",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.3.2.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.3.2.0.zip",
+   "sha256": "bd6ae1a86257ab43fc0cf1ed1fd26036308a340ede9629688e291e5e14d0e04b",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.3.1.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.3.1.0.zip",
+   "sha256": "586ae8a5c6428026332d5bc94787b2b517a575e38b29de09113ca557c8af02fa",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.3.0.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.3.0.0.zip",
+   "sha256": "7bfc911f68a5bc2ec9deb402574af6035f71b1621735da5f554259b85a7359cf",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.2.18.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.2.18.0.zip",
+   "sha256": "a38d965895b2dfed4671a1f118dfcf2e668fb2c67a34e9145940b1b9aa99cdbd",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.2.16.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.2.16.0.zip",
+   "sha256": "e38fa81a5bb3c2cb2254b272c904f38c365d09e0c4a660ebef3cad66543a007a",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.2.15.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.2.15.0.zip",
+   "sha256": "0671970eb0c0f5372f656f80ee587552c59360355715b0be08c9aa20d413f176",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.2.14.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.2.14.0.zip",
+   "sha256": "5095947e68fb11f3d09dfd2333dd53f7db0642398fba596d24941f151b4fe5bf",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.2.11.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.2.11.0.zip",
+   "sha256": "c0cbac05163a4dbc7f5481126334bf187fe3bdcbb153f8c5166db62b550f67ba",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.2.10.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.2.10.0.zip",
+   "sha256": "c343890c97623e08431fd8ee61af40d1f20bcda41f94566659ffff36e2117742",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.2.9.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.2.9.0.zip",
+   "sha256": "5a6f04c2fe1d6b3da95aa1001cb43381a8dfa6bbe2bc442e47d1d6354926e97a",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.2.6.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.2.6.0.zip",
+   "sha256": "6daf1ee08f661f5fbff7035bfae4eac9069e12d8e1721ca6a56079d483d7b05e",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.1.66.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.1.66.0.zip",
+   "sha256": "920c16e36531f5443d0a4742bfddd31ca16a6ec5d310f7753bdaf2bea8388955",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.1.63.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.1.63.0.zip",
+   "sha256": "9c690c317a115e8849419c418b5899b93c8de1f759f3e7d6631efe3cea47c9b7",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.1.62.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.1.62.0.zip",
+   "sha256": "0a4037b9c8d6cd00d9907096ef7edb0cc95549c4dca11d5728fde6e4f314e9d3",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.1.58.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.1.58.0.zip",
+   "sha256": "25a1274862ad4f57f534dd3932771797c4c40d7e97d7dd4283d0b90d3d5dfd15",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.1.55.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.1.55.0.zip",
+   "sha256": "b114655978dcf5e9631bb0558bf7267cff682c8e05908d5916c06e3e7c31f11c",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.1.53.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.1.53.0.zip",
+   "sha256": "b33241de32f44a7a0fae4aaf921c9ed8c222441cdddbc225d0743bc42e3aa138",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.1.52.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.1.52.0.zip",
+   "sha256": "bf8e3d98506eb2f94b6bf4b292c861e4a16251a54cb221dbbed4d875c21f148b",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.1.51.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.1.51.0.zip",
+   "sha256": "d85703ac91f3d364fc468c2f0777d18b456a7c5d05c27d761ff3997f52a83477",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.1.50.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.1.50.0.zip",
+   "sha256": "bf82480d897ec3d963fdb65bf99c36fee66315d65738d0db82ea47fe5ba7deef",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.1.40.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.1.40.0.zip",
+   "sha256": "ffefc9d4b4ccfab48bd035405bebf4defd078f0a551bfb6046d0e29a1bc66cde",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.1.39.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.1.39.0.zip",
+   "sha256": "5902d5b6c6a43fc2ed9145596212a500ce5df7440f87f1a42edf305bf4ee0933",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.1.35.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.1.35.0.zip",
+   "sha256": "06cb34c78b7ef53b407a80390622f6c6029f36549056d3e16380872cde142107",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.1.31.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.1.31.0.zip",
+   "sha256": "1a7d377ff6da0c6b9621598b651e9015897b4bb2bae8953676d3c7f48b5cac16",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.1.29.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.1.29.0.zip",
+   "sha256": "84b64fcf277fe2e990f1803ba62f06f80f0620d18839b049c81155a763a0e3eb",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "2020-09-15"
+  },
+  {
+   "family": "dlss",
+   "version": "2.1.28.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.1.28.0.zip",
+   "sha256": "f0cf1f004b32cbeb569a17465fa2b490ef4dde4f76530e6b01cd7a7898a04e6e",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.1.25.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.1.25.0.zip",
+   "sha256": "7a7f0e1c9ac5fc38fb84f00d882dd38b3ce245953ccf3f5c55df82aa728f972b",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.1.24.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.1.24.0.zip",
+   "sha256": "f7c306892db77b999a3c0a777a68202283afe2710634d5ed374cb204653825ba",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.1.19.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.1.19.0.zip",
+   "sha256": "61b4444a10d1e19ebf0f1c129d57698a1428e6d08832c4462265502a117421b5",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.1.16.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.1.16.0.zip",
+   "sha256": "df8ce799ad4370dc1a7b03d9525b7910441ea23e78b3a5506c27b7445835c647",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.0.38.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.0.38.0.zip",
+   "sha256": "3aea8a79cf19ca75fe39940002a9b2c59012a08741b1031af8bc8bfc82919ae2",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "2.0.34.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v2.0.34.0.zip",
+   "sha256": "b965d0615d3fadcaa96c0aaf08a1be7961c75051a30195e8ce151eb4d2663e4e",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "1.3.2.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v1.3.2.0.zip",
+   "sha256": "53271884b0f3e89af0de27f6373d727101e61a711f3b6e3f9d0a775b32d278c0",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "1.2.14.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v1.2.14.0.zip",
+   "sha256": "bfc832247ad05622449e4cebe75ef78723d63e0e50ada78399ab648952492b39",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "1.1.13.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v1.1.13.0.zip",
+   "sha256": "d4cc11bcec693dfefd6eddba6dd29bdfc16b4043e7b83150f0097d14b76512d8",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "1.1.6.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v1.1.6.0.zip",
+   "sha256": "4f31313cd94ce40055e88d4f384fc981688e1ed6213aeabf5f7458511e613911",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss",
+   "version": "1.0.17.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v1.0.17.0.zip",
+   "sha256": "6499548b13496234f91178d1c4f71731e3f84dcb8d78d9f20f63ede343f78b03",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "2019-03-06"
+  },
+  {
+   "family": "dlss",
+   "version": "1.0.13.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v1.0.13.0.zip",
+   "sha256": "556937e0fd43dfa08817ff496275bee0635da975e5f4acc3135ade3ebf3105c5",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "2019-02-01"
+  },
+  {
+   "family": "dlss",
+   "version": "1.0.11.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v1.0.11.0.zip",
+   "sha256": "3a3965fe7ffda4045788441e591488715eec37eeb60ed1582325ab5955b527da",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "2019-02-07"
+  },
+  {
+   "family": "dlss",
+   "version": "1.0.9.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v1.0.9.0.zip",
+   "sha256": "56c52964eec6d7d8cb95bf3cca6cb972d4de2bb26f505361b7bc448342368f53",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "2019-03-15"
+  },
+  {
+   "family": "dlss",
+   "version": "1.0.0.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v1.0.0.0.zip",
+   "sha256": "07bcc3a36a0bfe3f1a877efc151e23b1297b34859b57448ac3eaf60a98ae906a",
+   "zip_path": "nvngx_dlss.dll",
+   "release_date": "2018-12-21"
+  },
+  {
+   "family": "dlss_g",
+   "version": "310.7.0.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_g_v310.7.0.0.zip",
+   "sha256": "135eaf0733c1e37381a8c28abcf7a862404a54132b81787c04e35d09efc5e36f",
+   "zip_path": "nvngx_dlssg.dll",
+   "release_date": "2026-05-06"
+  },
+  {
+   "family": "dlss_g",
+   "version": "310.6.0.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_g_v310.6.0.0.zip",
+   "sha256": "83230804a087272c6d7eb4c805ac5925ce1188c70f150cc8dbd5cd843f53946a",
+   "zip_path": "nvngx_dlssg.dll",
+   "release_date": "2026-03-05"
+  },
+  {
+   "family": "dlss_g",
+   "version": "310.5.3.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_g_v310.5.3.0.zip",
+   "sha256": "de08ff18dfb4d2ffe1f20bf1f689a1d4e18098a91e5eb2e4849480cd98fb305f",
+   "zip_path": "nvngx_dlssg.dll",
+   "release_date": "2026-01-21"
+  },
+  {
+   "family": "dlss_g",
+   "version": "310.5.2.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_g_v310.5.2.0.zip",
+   "sha256": "da924c3ab1809285851609545da239efaa1718d2458c3713c1a12e9defdf9002",
+   "zip_path": "nvngx_dlssg.dll",
+   "release_date": "2026-01-09"
+  },
+  {
+   "family": "dlss_g",
+   "version": "310.5.0.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_g_v310.5.0.0.zip",
+   "sha256": "5685c065e6c048f673d70f5dda5b23570c8570642e4e284216f59c2e85583016",
+   "zip_path": "nvngx_dlssg.dll",
+   "release_date": "2025-12-01"
+  },
+  {
+   "family": "dlss_g",
+   "version": "310.4.0.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_g_v310.4.0.0.zip",
+   "sha256": "fa7b99551ef8e089d2573d936ebc560855d2868323a791859d5f2cf94235a6ed",
+   "zip_path": "nvngx_dlssg.dll",
+   "release_date": "2025-08-12"
+  },
+  {
+   "family": "dlss_g",
+   "version": "310.3.0.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_g_v310.3.0.0.zip",
+   "sha256": "5446a1c459873481acb756374a555d71de16e617166d471b798502d2f2318ede",
+   "zip_path": "nvngx_dlssg.dll",
+   "release_date": "2025-05-08"
+  },
+  {
+   "family": "dlss_g",
+   "version": "310.2.1.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_g_v310.2.1.0.zip",
+   "sha256": "3d17996b4c4f669f0fe27c9672e9fa71a39e997e09ac020c077edec682570ce8",
+   "zip_path": "nvngx_dlssg.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss_g",
+   "version": "310.2.0.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_g_v310.2.0.0.zip",
+   "sha256": "245fdf1df96e46a2303a46ec837063e662136e279e9af60b217798ea7366d385",
+   "zip_path": "nvngx_dlssg.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss_g",
+   "version": "310.1.0.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_g_v310.1.0.0.zip",
+   "sha256": "907b036e714a674aa53dba1ecbb251802a684cb684d1ac2d11da85742f2ea906",
+   "zip_path": "nvngx_dlssg.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss_g",
+   "version": "3.8.1.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_g_v3.8.1.0.zip",
+   "sha256": "8dd0ac5290e00bf846e093345aacb8a9e04cf8eab8618ca959a12a01c02cb7b2",
+   "zip_path": "nvngx_dlssg.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss_g",
+   "version": "3.7.10.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_g_v3.7.10.0.zip",
+   "sha256": "0f018d0811c4a05ef6302e0065bef8c54e6562358deb5be6bfb45db3df0a8343",
+   "zip_path": "nvngx_dlssg.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss_g",
+   "version": "3.7.1.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_g_v3.7.1.0.zip",
+   "sha256": "7124308679b6ee3002d358e3452f219d761430b8c8d4a9c2f702c638088e095b",
+   "zip_path": "nvngx_dlssg.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss_g",
+   "version": "3.7.0.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_g_v3.7.0.0.zip",
+   "sha256": "a362b115f717b739c098123b3e54713946f032f2c40dad41d6398d9a09acd59e",
+   "zip_path": "nvngx_dlssg.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss_g",
+   "version": "3.6.0.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_g_v3.6.0.0.zip",
+   "sha256": "19edc88f2ea2ddcaaceb4fb5496d44c714acd17d200c73028b5941ec45af8fd2",
+   "zip_path": "nvngx_dlssg.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss_g",
+   "version": "3.5.10.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_g_v3.5.10.0.zip",
+   "sha256": "cc8bd195cefcce0cc073712da66a378e2e4da957b9a6cc4321bcfae5155ef5fc",
+   "zip_path": "nvngx_dlssg.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss_g",
+   "version": "3.5.0.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_g_v3.5.0.0.zip",
+   "sha256": "d95347cebfb12fcab9397a2d6445c1b52dc61f5754ee644467fb8bea056dab9a",
+   "zip_path": "nvngx_dlssg.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss_g",
+   "version": "3.1.30.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_g_v3.1.30.0.zip",
+   "sha256": "0bdbff0e6e35ab46580fb6748f8a7e90f1786a11846f8691c87d8f7002c29a59",
+   "zip_path": "nvngx_dlssg.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss_g",
+   "version": "3.1.13.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_g_v3.1.13.0.zip",
+   "sha256": "c1b14ee20b6ab2fc723692fe823c9abb3759a159ac45b77d8c3011bc1a0129f2",
+   "zip_path": "nvngx_dlssg.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss_g",
+   "version": "3.1.12.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_g_v3.1.12.0.zip",
+   "sha256": "224ce2d93aba49bbc3cef4d87c9a0fdd079a772c146640cd682ed4dfe6fc4e46",
+   "zip_path": "nvngx_dlssg.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss_g",
+   "version": "3.1.11.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_g_v3.1.11.0.zip",
+   "sha256": "c7e47bfe570f0cc1ea246c96cd0a0d23c740a8affc14d2854c80581e2d89b2ec",
+   "zip_path": "nvngx_dlssg.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss_g",
+   "version": "3.1.1.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_g_v3.1.1.0.zip",
+   "sha256": "54151493c94dc969fff3292e9fb19dfb8f9e041680999644efe32ca526ddc377",
+   "zip_path": "nvngx_dlssg.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss_g",
+   "version": "1.0.7.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_g_v1.0.7.0.zip",
+   "sha256": "710f4573d1c1a03086f4501e5b58f496367fbd82f5310ac68e2283c3376b29b0",
+   "zip_path": "nvngx_dlssg.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss_g",
+   "version": "1.0.6.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_g_v1.0.6.0.zip",
+   "sha256": "381410176c3a758b30b85c1e9c2259731013290abe762f81afa8550b66b9dc68",
+   "zip_path": "nvngx_dlssg.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss_g",
+   "version": "1.0.5.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_g_v1.0.5.0.zip",
+   "sha256": "2d724b21f2aea77e42cd21344ce102bf2e63c81b2ecbb353dd6d96cfff1a2be1",
+   "zip_path": "nvngx_dlssg.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss_g",
+   "version": "1.0.4.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_g_v1.0.4.0.zip",
+   "sha256": "04797028629b79a7460ee7e2fc586c1c3778cdefdcc7aa4eee03557222c1336d",
+   "zip_path": "nvngx_dlssg.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss_g",
+   "version": "1.0.3.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_g_v1.0.3.0.zip",
+   "sha256": "ddaf9747a1d7d461d2ab740f0d6ac92f997fc56dc4e1f58191ab61963aa7ecbe",
+   "zip_path": "nvngx_dlssg.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss_g",
+   "version": "1.0.2.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_g_v1.0.2.0.zip",
+   "sha256": "5696c944f1884ae2827d7b20f5e05bddf8ae0c30f17284a0eb2a72bf412231be",
+   "zip_path": "nvngx_dlssg.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss_g",
+   "version": "1.0.1.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_g_v1.0.1.0.zip",
+   "sha256": "7acc0f1e44b1ee435033fb13ec63284d5ffb7f1a9c36b81a65aa47edf3ce5fb2",
+   "zip_path": "nvngx_dlssg.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss_d",
+   "version": "310.7.0.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_d_v310.7.0.0.zip",
+   "sha256": "fd83687c98d00754ae8e26b5daa7dabfed04557113c69c9eddfe4b6f3acaf426",
+   "zip_path": "nvngx_dlssd.dll",
+   "release_date": "2026-05-14"
+  },
+  {
+   "family": "dlss_d",
+   "version": "310.6.0.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_d_v310.6.0.0.zip",
+   "sha256": "711ee3afcaa3a4fa74eb86c87d8df05f303a2df04f660e05404b759b3f2906c6",
+   "zip_path": "nvngx_dlssd.dll",
+   "release_date": "2026-03-04"
+  },
+  {
+   "family": "dlss_d",
+   "version": "310.5.3.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_d_v310.5.3.0.zip",
+   "sha256": "e1d1b8d8d07e7210b5feafc42f118fe3bf0144b9e7f2768e44c6f652faa6d7b8",
+   "zip_path": "nvngx_dlssd.dll",
+   "release_date": "2026-01-21"
+  },
+  {
+   "family": "dlss_d",
+   "version": "310.5.2.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_d_v310.5.2.0.zip",
+   "sha256": "1046fd59184f71306556a85a92b30b59b2da44cfe02d92ccd42252ddbd7b9a56",
+   "zip_path": "nvngx_dlssd.dll",
+   "release_date": "2026-01-09"
+  },
+  {
+   "family": "dlss_d",
+   "version": "310.5.0.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_d_v310.5.0.0.zip",
+   "sha256": "1c4404ae3d9ac8997e891e7ceea311f82fee9e69956c2ffe4e5cf6de971ec07e",
+   "zip_path": "nvngx_dlssd.dll",
+   "release_date": "2025-11-29"
+  },
+  {
+   "family": "dlss_d",
+   "version": "310.4.0.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_d_v310.4.0.0.zip",
+   "sha256": "6795a75b878daf319ff55e29b1609492bf93d4da7879a8927f6de88604aefcdf",
+   "zip_path": "nvngx_dlssd.dll",
+   "release_date": "2025-08-12"
+  },
+  {
+   "family": "dlss_d",
+   "version": "310.3.0.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_d_v310.3.0.0.zip",
+   "sha256": "e43fdcead51c388390fd74211dcc4ee8c218e7650d4f7ce3e8ca9d899db7f33a",
+   "zip_path": "nvngx_dlssd.dll",
+   "release_date": "2025-06-06"
+  },
+  {
+   "family": "dlss_d",
+   "version": "310.2.1.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_d_v310.2.1.0.zip",
+   "sha256": "395dd725bdd34bc7bf9cce7ae5a4d379a67d8ef436219bca4c6f1355d033336a",
+   "zip_path": "nvngx_dlssd.dll",
+   "release_date": "2025-02-10"
+  },
+  {
+   "family": "dlss_d",
+   "version": "310.2.0.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_d_v310.2.0.0.zip",
+   "sha256": "892d335ae0c5795a0af870af1b7107011733773635fe5070819aff2c7d622739",
+   "zip_path": "nvngx_dlssd.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss_d",
+   "version": "310.1.0.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_d_v310.1.0.0.zip",
+   "sha256": "519c98e6d3b44d12671525f20e8fc46366a9fbf15aa5d4bc8446d6ba17699e22",
+   "zip_path": "nvngx_dlssd.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss_d",
+   "version": "3.7.20.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_d_v3.7.20.0.zip",
+   "sha256": "39c4cc3e5773949f85fd48665f5cef6aa56b12321ee9a37eaa56e846e1336a5a",
+   "zip_path": "nvngx_dlssd.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss_d",
+   "version": "3.7.10.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_d_v3.7.10.0.zip",
+   "sha256": "9d18b5a5506910fe17bc4f032c56cb00cf1c3d622c5c8b04798e67463d6006a5",
+   "zip_path": "nvngx_dlssd.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss_d",
+   "version": "3.7.0.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_d_v3.7.0.0.zip",
+   "sha256": "e69bad314692bee23800e6fa05aa3d807b8eddf0fd8d008ba3b6f1d73a5bbd02",
+   "zip_path": "nvngx_dlssd.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss_d",
+   "version": "3.5.10.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_d_v3.5.10.0.zip",
+   "sha256": "8731ba07436fc90be9944faf2e90b277154aae1ac2f3edebdef38a7fbb96e5cd",
+   "zip_path": "nvngx_dlssd.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "dlss_d",
+   "version": "3.5.0.0",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_d_v3.5.0.0.zip",
+   "sha256": "1f485ddb99a8311acb09af0f5e58f682fbfabe91224b57bbc8073310beef3f48",
+   "zip_path": "nvngx_dlssd.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "xess",
+   "version": "2.0.2.68",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/xess_v2.0.2.68.zip",
+   "sha256": "251659dd84a3e84de67c886a4186e01f3eca49b00641906fe38bb6b807e5d5b7",
+   "zip_path": "libxess.dll",
+   "release_date": "2025-10-17"
+  },
+  {
+   "family": "xess",
+   "version": "2.0.2.53",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/xess_v2.0.2.53.zip",
+   "sha256": "a49f487f15a815c1242b659182cc9365b6aff2d94051d25d5379316bdb11a2dd",
+   "zip_path": "libxess.dll",
+   "release_date": "2025-07-03"
+  },
+  {
+   "family": "xess",
+   "version": "2.0.1.41",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/xess_v2.0.1.41.zip",
+   "sha256": "23b3ebc802185f537423965c2ee9c8ad8adb5d137b004ce027a4088e629b5fd3",
+   "zip_path": "libxess.dll",
+   "release_date": "2025-03-12"
+  },
+  {
+   "family": "xess",
+   "version": "2.0.1.34",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/xess_v2.0.1.34.zip",
+   "sha256": "4b2d2e6a6c90e3f1b3f9897264facf06729206fdb3e10138157021784c49a24d",
+   "zip_path": "libxess.dll",
+   "release_date": "2025-02-04"
+  },
+  {
+   "family": "xess",
+   "version": "2.0.1.32",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/xess_v2.0.1.32.zip",
+   "sha256": "5950e6383ae18768bccd037de6804e43fdc946d1835064b59dc230bc14b5a464",
+   "zip_path": "libxess.dll",
+   "release_date": "2025-01-22"
+  },
+  {
+   "family": "xess",
+   "version": "2.0.1.29",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/xess_v2.0.1.29.zip",
+   "sha256": "1d2589e7e0c78888018cfeac8b889ca58b1f592deba0fcdea3d09d4fabd59448",
+   "zip_path": "libxess.dll",
+   "release_date": "2025-01-10"
+  },
+  {
+   "family": "xess",
+   "version": "2.0.0.18",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/xess_v2.0.0.18.zip",
+   "sha256": "208c63f138b456cc579a68bdeb710ea5247a7839c75fc200e0f322930e0d00ef",
+   "zip_path": "libxess.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "xess",
+   "version": "1.3.1.32",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/xess_v1.3.1.32.zip",
+   "sha256": "703ab8debc05ae209f6e4622cc06edf9f95a241f7ce68ee75c8955564d36ad70",
+   "zip_path": "libxess.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "xess",
+   "version": "1.3.0.28",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/xess_v1.3.0.28.zip",
+   "sha256": "d7f0e1f0e6bccdd52b331d2d126abf1bfc30fce18a3f0255b876086eed70d4ca",
+   "zip_path": "libxess.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "xess",
+   "version": "1.2.0.13",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/xess_v1.2.0.13.zip",
+   "sha256": "3170283f328923dcf74e5c86fb08cea88551b4404046ebfbe16d6d3ab56a7d6c",
+   "zip_path": "libxess.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "xess",
+   "version": "1.2.0.10",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/xess_v1.2.0.10.zip",
+   "sha256": "0462045ab6d5ef1cc089fab72caa4aea8b5c385ac42f2e626fa55121b14102f3",
+   "zip_path": "libxess.dll",
+   "release_date": "2023-07-12"
+  },
+  {
+   "family": "xess",
+   "version": "1.1.0.21",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/xess_v1.1.0.21.zip",
+   "sha256": "d393a7a224ed758959de58160f0f5bb58ef272c3aaff5bc76afda4ab0c16f3cf",
+   "zip_path": "libxess.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "xess",
+   "version": "1.1.0.18",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/xess_v1.1.0.18.zip",
+   "sha256": "e8cfbeff0fa7d3c12aa83f18f294808f59f9cfedc91de605fc7958a9a916c2c3",
+   "zip_path": "libxess.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "xess",
+   "version": "1.0.1.12",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/xess_v1.0.1.12.zip",
+   "sha256": "4ae10f9bec7391343898da0e22f024c6dea0bd03d754901af2b8a1ed893d7706",
+   "zip_path": "libxess.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "xess",
+   "version": "1.0.0.59",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/xess_v1.0.0.59.zip",
+   "sha256": "0b423a2f733cbd25c62d15150c92fef361756183776e3d1a0ce9de569431b70b",
+   "zip_path": "libxess.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "xess_fg",
+   "version": "1.3.1.78",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/xess_fg_v1.3.1.78.zip",
+   "sha256": "ec5e0c65e075570c6ede72618bb666d0be0c2e10b2ea9762c0fe8cb8e375ab27",
+   "zip_path": "libxess_fg.dll",
+   "release_date": "2026-03-31"
+  },
+  {
+   "family": "xess_fg",
+   "version": "1.3.1.68",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/xess_fg_v1.3.1.68.zip",
+   "sha256": "9d074c7cb931d450875373372da832304b82a2dcac51cb17df44b49f00e2961c",
+   "zip_path": "libxess_fg.dll",
+   "release_date": "2026-03-03"
+  },
+  {
+   "family": "xess_fg",
+   "version": "1.2.2.118",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/xess_fg_v1.2.2.118.zip",
+   "sha256": "e042a111df5e4d3e5fe9d1779b54890f42a54d3ea47487673b07003b931f2568",
+   "zip_path": "libxess_fg.dll",
+   "release_date": "2025-10-21"
+  },
+  {
+   "family": "xess_fg",
+   "version": "1.2.0.87",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/xess_fg_v1.2.0.87.zip",
+   "sha256": "7fa2116e987a6fcc621e7be791461ca49988490ee3a4bc008ebb9796a057e1db",
+   "zip_path": "libxess_fg.dll",
+   "release_date": "2025-07-19"
+  },
+  {
+   "family": "xess_fg",
+   "version": "1.1.0.19",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/xess_fg_v1.1.0.19.zip",
+   "sha256": "d82d9adab239af4e49063d0c4d2e1134529f3963879998d7e0df43a32514ca84",
+   "zip_path": "libxess_fg.dll",
+   "release_date": "2025-03-13"
+  },
+  {
+   "family": "xess_fg",
+   "version": "1.0.1.31",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/xess_fg_v1.0.1.31.zip",
+   "sha256": "73262a05f073f5a2b7ba45033c99068ca2c594ee58cc7b1eb22a4867db5eba92",
+   "zip_path": "libxess_fg.dll",
+   "release_date": "2025-02-04"
+  },
+  {
+   "family": "xess_fg",
+   "version": "1.0.1.26",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/xess_fg_v1.0.1.26.zip",
+   "sha256": "784c391b00b08edfc9b3cd65fc007a9e150a434afdc360fd1500b6fc27c55c27",
+   "zip_path": "libxess_fg.dll",
+   "release_date": "2025-01-16"
+  },
+  {
+   "family": "xess_fg",
+   "version": "1.0.0.16",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/xess_fg_v1.0.0.16.zip",
+   "sha256": "c7bccfdff498ad313e7780439d2036c5e34ec715ff3d90900de8870957d09ec0",
+   "zip_path": "libxess_fg.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "xess_fg",
+   "version": "0.9.11.9",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/xess_fg_v0.9.11.9.zip",
+   "sha256": "899bcf6c1168a47cc4c23dba3a06b314e5b3e70b9fe7f3550cb4f595867f6dc4",
+   "zip_path": "libxess_fg.dll",
+   "release_date": "2024-10-16"
+  },
+  {
+   "family": "fsr",
+   "version": "1.0.2.38022",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/fsr_dx12_v1.0.2.38022.zip",
+   "sha256": "e27a4b58960d4fa008795a95b205dcd547af7dd0562e05c9ea9364cbaff3094a",
+   "zip_path": "amd_fidelityfx_dx12.dll",
+   "release_date": "2024-10-10"
+  },
+  {
+   "family": "fsr",
+   "version": "1.0.1.42386",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/fsr_vk_v1.0.1.42386.zip",
+   "sha256": "e0dee6262d100c3833b4e0b7dd488e5c4a6af05b43a9d505f9f0ac7e35daf8cb",
+   "zip_path": "amd_fidelityfx_vk.dll",
+   "release_date": "2025-06-09"
+  },
+  {
+   "family": "fsr",
+   "version": "1.0.1.41314",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/fsr_dx12_v1.0.1.41314.zip",
+   "sha256": "12a5081257ec95b0b53ad51b4a87fb3c03f97fe0bbb59f9496968f8d50ef93a6",
+   "zip_path": "amd_fidelityfx_dx12.dll",
+   "release_date": "2025-05-07"
+  },
+  {
+   "family": "fsr",
+   "version": "1.0.1.41314",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/fsr_vk_v1.0.1.41314.zip",
+   "sha256": "a1624cc4238fef046f30c4d80ce3f47be63fc5f5373f49e3ee9edb9960f54c78",
+   "zip_path": "amd_fidelityfx_vk.dll",
+   "release_date": "2025-05-07"
+  },
+  {
+   "family": "fsr",
+   "version": "1.0.1.40157",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/fsr_dx12_v1.0.1.40157.zip",
+   "sha256": "ad203ed7852933e3d2d5af3356019cce69fd99664e59e68614846ad4d89f6b76",
+   "zip_path": "amd_fidelityfx_dx12.dll",
+   "release_date": "2025-02-27"
+  },
+  {
+   "family": "fsr",
+   "version": "1.0.1.39321",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/fsr_vk_v1.0.1.39321.zip",
+   "sha256": "268b29f3234fe5aaa6bc0344121980af5dd0cebe09e5b466da4eb64a2b20a04b",
+   "zip_path": "amd_fidelityfx_vk.dll",
+   "release_date": "2024-12-16"
+  },
+  {
+   "family": "fsr",
+   "version": "1.0.1.39157",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/fsr_dx12_v1.0.1.39157.zip",
+   "sha256": "5672ee4202aa5417e23369d548a140652367494299a7678b42aa5b3395f76ad7",
+   "zip_path": "amd_fidelityfx_dx12.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "fsr",
+   "version": "1.0.1.39157",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/fsr_vk_v1.0.1.39157.zip",
+   "sha256": "04a455bb7c01af1adc630f3be41bd85689b6a8565199e25b09696240750f6d1e",
+   "zip_path": "amd_fidelityfx_vk.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "fsr",
+   "version": "1.0.1.38338",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/fsr_dx12_v1.0.1.38338.zip",
+   "sha256": "270b6298bfb87098cbe679c8f4535e17fd8954a1313292b1564e982b1e679a0d",
+   "zip_path": "amd_fidelityfx_dx12.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "fsr",
+   "version": "1.0.1.38338",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/fsr_vk_v1.0.1.38338.zip",
+   "sha256": "239792f0653ea3ccf13d384cc462def4108a47e14d7bf72a41b778b8bc2da8f9",
+   "zip_path": "amd_fidelityfx_vk.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "fsr",
+   "version": "1.0.1.37507",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/fsr_dx12_v1.0.1.37507.zip",
+   "sha256": "9c2ba6727683804242980bcddc5c1ee4e16357b4bd17c8a93ce94614ed149780",
+   "zip_path": "amd_fidelityfx_dx12.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "fsr",
+   "version": "1.0.1.37507",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/fsr_vk_v1.0.1.37507.zip",
+   "sha256": "6c6bfdaa15e5827a1274d41e5dea5bdb5852816fc462502caf4a32982aabea70",
+   "zip_path": "amd_fidelityfx_vk.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "fsr",
+   "version": "1.0.0.36752",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/fsr_dx12_v1.0.0.36752.zip",
+   "sha256": "f94622aaf38f30faca1ebb79cf238d86420b214f944bf8d4b073757005ce168a",
+   "zip_path": "amd_fidelityfx_dx12.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "fsr",
+   "version": "1.0.0.36604",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/fsr_dx12_v1.0.0.36604.zip",
+   "sha256": "77809405a0ff464b63654f1264f0ec0fcf8f243dac7c15b5f5c032615520d143",
+   "zip_path": "amd_fidelityfx_dx12.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "fsr",
+   "version": "1.0.0.36604",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/fsr_vk_v1.0.0.36604.zip",
+   "sha256": "3cceed45fd9fc47c98eb6d205fbd8aad198afef945c39f621a6e21dfb2bd97bf",
+   "zip_path": "amd_fidelityfx_vk.dll",
+   "release_date": "0001-01-01"
+  },
+  {
+   "family": "fsr",
+   "version": "1.0.0.36208",
+   "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/fsr_dx12_v1.0.0.36208.zip",
+   "sha256": "602d24510583b74e6a660241009ebe702f0578ada8e8cc76243b3b2d6cb51b79",
+   "zip_path": "amd_fidelityfx_dx12.dll",
+   "release_date": "0001-01-01"
+  }
+ ]
 }

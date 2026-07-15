@@ -1,5 +1,5 @@
 import { invoke } from "@tauri-apps/api/core";
-import type { GamePrefs, LibraryPayload, Settings } from "./types";
+import type { GamePrefs, GamePresets, LibraryPayload, Settings } from "./types";
 
 export const api = {
   getLibrary: () => invoke<LibraryPayload>("get_library"),
@@ -17,6 +17,10 @@ export const api = {
     invoke<LibraryPayload>("restore_dll", { gameId, family }),
   setGamePrefs: (gameId: number, prefs: GamePrefs) =>
     invoke<void>("set_game_prefs", { gameId, prefs }),
+  getGamePresets: (gameId: number) =>
+    invoke<GamePresets>("get_game_presets", { gameId }),
+  setGamePreset: (gameId: number, family: string, value: number) =>
+    invoke<GamePresets>("set_game_preset", { gameId, family, value }),
   getSettings: () => invoke<Settings>("get_settings"),
   setSettings: (settings: Settings) => invoke<void>("set_settings", { settings }),
 };

@@ -4,6 +4,7 @@ pub mod db;
 pub mod dll;
 pub mod downloads;
 pub mod models;
+pub mod presets;
 mod remote;
 mod scanners;
 pub mod swap;
@@ -39,6 +40,8 @@ pub fn run() {
             commands::swap_dll,
             commands::restore_dll,
             commands::set_game_prefs,
+            commands::get_game_presets,
+            commands::set_game_preset,
             commands::get_settings,
             commands::set_settings,
         ])

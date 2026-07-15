@@ -35,7 +35,13 @@ notifies you and installs it in one click from Settings.
   between your installed version and the one you're about to swap to.
 - **Version rail** — each DLL family is drawn as a copper trace with a solder
   pad per release: your installed pad glows, downloaded builds carry a dot,
-  and clicking a pad plans a swap or downgrade.
+  and clicking a pad plans a swap or downgrade. The full community archive —
+  every DLSS/FG/RR/XeSS/FSR build ever released — is downloadable.
+- **Driver preset overrides** — force a DLSS or Ray Reconstruction render
+  preset per game (transformer preset K, CNN presets A–F, or "Latest")
+  straight into the NVIDIA driver profile, the same way NVIDIA Profile
+  Inspector does. Each preset carries a short description, and the
+  community-recommended preset is the default suggestion.
 - **Safety rails** — SHA-256 verification of every download against the
   manifest, sacred first-swap backups (`*.uplift.bak`) with one-click restore,
   refuse-if-running, filename matching so a DX12 FSR build can never land on
@@ -115,6 +121,7 @@ src-tauri/src/
   remote.rs      releases / changelogs / anticheat manifests + Steam box art
   downloads.rs   fetch → unzip if needed → SHA-256 verify → library store
   swap.rs        refuse-if-running, first-swap backup, copy, post-verify
+  presets.rs     NVAPI DRS bindings — per-game DLSS/RR preset overrides
   background.rs  poll loop → toasts for new releases → guarded auto-update pass
   commands.rs    the invoke surface
   lib.rs         tray, hide-to-tray, autostart, self-updater, plugin wiring
@@ -134,8 +141,6 @@ except for downloads, manifest refresh, and Steam cover art.
 
 ## Roadmap (not yet implemented)
 
-- **DLSS preset overrides** (force preset K/J per game) via NVAPI DRS —
-  what NVIDIA Profile Inspector does; needs NVAPI bindings.
 - **NVIDIA App override detection** — warn when the driver-level DLSS
   override is already active so the two don't fight.
 - **Elevation flow** — per-swap "retry elevated" for protected directories

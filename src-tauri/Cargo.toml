@@ -38,6 +38,7 @@ chrono = { version = "0.4", features = ["serde"] }
 
 [target.'cfg(windows)'.dependencies]
 winreg = "0.52"
+libloading = "0.8"
 
 [profile.release]
 lto = true
