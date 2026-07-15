@@ -1,6 +1,6 @@
 [package]
 name = "uplift"
-version = "0.1.0"
+version = "0.2.0"
 description = "Uplift — DLSS / FSR / XeSS DLL manager with update notifications, changelogs and safe auto-updates"
 edition = "2021"
 license = "GPL-3.0-only"
