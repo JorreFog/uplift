@@ -1,0 +1,69 @@
+{
+  "$comment": "Uplift releases manifest. Every entry carries the SHA-256 of the final DLL file; the app refuses to store a download whose hash does not match. The zips are hosted as assets of the 'dll-archive' GitHub release; upload new files there and add an entry here to publish a build.",
+  "releases": [
+    {
+      "family": "dlss",
+      "version": "310.7.0.0",
+      "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v310.7.0.0.zip",
+      "sha256": "1cdfdc957cb7fc9805500ca6793f607ef2d4dbd7c967feac70aca9caf382d0c0",
+      "zip_path": "nvngx_dlss.dll",
+      "release_date": "2026-05-15"
+    },
+    {
+      "family": "dlss",
+      "version": "310.6.0.0",
+      "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v310.6.0.0.zip",
+      "sha256": "4e86dad07a052a0672f231f98a11a463da99239ca73e154d8e27951b260b99a8",
+      "zip_path": "nvngx_dlss.dll",
+      "release_date": "2026-03-06"
+    },
+    {
+      "family": "dlss_g",
+      "version": "310.7.0.0",
+      "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_g_v310.7.0.0.zip",
+      "sha256": "0d33b5de65d60a943c33bd096d574297302b214a1c5baa6bcb74bc1150a608de",
+      "zip_path": "nvngx_dlssg.dll",
+      "release_date": "2026-05-06"
+    },
+    {
+      "family": "dlss_d",
+      "version": "310.7.0.0",
+      "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_d_v310.7.0.0.zip",
+      "sha256": "fd83687c98d00754ae8e26b5daa7dabfed04557113c69c9eddfe4b6f3acaf426",
+      "zip_path": "nvngx_dlssd.dll",
+      "release_date": "2026-05-14"
+    },
+    {
+      "family": "xess",
+      "version": "2.0.2.68",
+      "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/xess_v2.0.2.68.zip",
+      "sha256": "251659dd84a3e84de67c886a4186e01f3eca49b00641906fe38bb6b807e5d5b7",
+      "zip_path": "libxess.dll",
+      "release_date": "2025-10-17"
+    },
+    {
+      "family": "xess_fg",
+      "version": "1.3.1.78",
+      "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/xess_fg_v1.3.1.78.zip",
+      "sha256": "ec5e0c65e075570c6ede72618bb666d0be0c2e10b2ea9762c0fe8cb8e375ab27",
+      "zip_path": "libxess_fg.dll",
+      "release_date": "2026-03-31"
+    },
+    {
+      "family": "fsr",
+      "version": "1.0.2.38022",
+      "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/fsr_dx12_v1.0.2.38022.zip",
+      "sha256": "e27a4b58960d4fa008795a95b205dcd547af7dd0562e05c9ea9364cbaff3094a",
+      "zip_path": "amd_fidelityfx_dx12.dll",
+      "release_date": "2024-10-10"
+    },
+    {
+      "family": "fsr",
+      "version": "1.0.1.42386",
+      "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/fsr_vk_v1.0.1.42386.zip",
+      "sha256": "e0dee6262d100c3833b4e0b7dd488e5c4a6af05b43a9d505f9f0ac7e35daf8cb",
+      "zip_path": "amd_fidelityfx_vk.dll",
+      "release_date": "2025-06-09"
+    }
+  ]
+}

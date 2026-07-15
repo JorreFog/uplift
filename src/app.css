@@ -1,0 +1,107 @@
+/* ── Uplift design tokens — "hardware bench" ─────────────────────────────
+   Graphite panels, copper accent (PCB traces), mono for every version
+   string. Display: Chakra Petch. Body: IBM Plex Sans. Data: IBM Plex Mono. */
+:root {
+  --bg: #0e1116;
+  --panel: #151a21;
+  --panel-2: #1b222b;
+  --line: #232b36;
+  --line-bright: #2f3945;
+  --ink: #e8eaed;
+  --muted: #8b94a3;
+  --faint: #5b6472;
+  --copper: #e5a158;
+  --copper-dim: #a06e3c;
+  --copper-glow: rgba(229, 161, 88, 0.14);
+  --mint: #6fd3a6;
+  --amber: #e6c86e;
+  --red: #e4746d;
+  --font-display: "Chakra Petch", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --radius: 10px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+#app { height: 100%; }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin: 0;
+}
+
+button {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  background: var(--panel-2);
+  border: 1px solid var(--line-bright);
+  border-radius: 8px;
+  padding: 7px 14px;
+  cursor: pointer;
+  transition: border-color 120ms, background 120ms, color 120ms;
+}
+button:hover { border-color: var(--copper-dim); }
+button:focus-visible { outline: 2px solid var(--copper); outline-offset: 2px; }
+button:disabled { opacity: 0.45; cursor: default; }
+button.primary {
+  background: var(--copper);
+  border-color: var(--copper);
+  color: #1a1208;
+  font-weight: 600;
+}
+button.primary:hover { background: #eeb173; }
+button.ghost { background: transparent; border-color: transparent; color: var(--muted); }
+button.ghost:hover { color: var(--ink); border-color: var(--line-bright); }
+button.danger { color: var(--red); border-color: var(--line-bright); }
+button.danger:hover { border-color: var(--red); }
+
+input[type="text"], select {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid var(--line-bright);
+  border-radius: 8px;
+  padding: 7px 10px;
+}
+input:focus-visible, select:focus-visible { outline: 2px solid var(--copper); outline-offset: 1px; }
+
+.mono { font-family: var(--font-mono); }
+
+/* version chip: every version string in the app wears this */
+.ver {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  white-space: nowrap;
+}
+.ver.latest { color: var(--mint); border-color: rgba(111, 211, 166, 0.35); }
+.ver.behind { color: var(--amber); border-color: rgba(230, 200, 110, 0.35); }
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: var(--line-bright); border-radius: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}

@@ -1,0 +1,15 @@
+{
+  "$comment": "Games where swapping DLLs is risky. severity 'block' = Uplift refuses to swap; 'warn' = manual swap requires confirmation, auto-update always skipped. Seed list — extend via PRs.",
+  "entries": [
+    { "name_contains": "Fortnite", "system": "EAC/BattlEye", "severity": "block" },
+    { "name_contains": "VALORANT", "system": "Vanguard", "severity": "block" },
+    { "name_contains": "Destiny 2", "steam_appid": 1085660, "system": "BattlEye", "severity": "block" },
+    { "name_contains": "Escape from Tarkov", "system": "BattlEye", "severity": "block" },
+    { "name_contains": "Call of Duty", "system": "RICOCHET", "severity": "block" },
+    { "name_contains": "Rainbow Six Siege", "system": "BattlEye", "severity": "warn" },
+    { "name_contains": "PUBG", "steam_appid": 578080, "system": "BattlEye", "severity": "warn" },
+    { "name_contains": "Apex Legends", "steam_appid": 1172470, "system": "EAC", "severity": "warn" },
+    { "name_contains": "Hunt: Showdown", "system": "EAC", "severity": "warn" },
+    { "name_contains": "Dead by Daylight", "steam_appid": 381210, "system": "EAC", "severity": "warn" }
+  ]
+}

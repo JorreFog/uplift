@@ -1,0 +1,137 @@
+{
+  "$comment": "Community-curated changelog database. NVIDIA publishes no official per-DLL changelogs, so entries are sourced from community testing (TechPowerUp, r/DLSS_Swapper, Digital Foundry). PRs welcome; keep 'changes' short and factual. The entries below are seeds — verify before publishing.",
+  "changelogs": [
+    {
+      "family": "dlss",
+      "version": "310.7.0.0",
+      "release_date": "2026-05-15",
+      "changes": [
+        "Maintenance build in the DLSS 4 transformer line",
+        "Image-stability refinements over 310.6"
+      ],
+      "known_issues": [],
+      "recommended_preset": "K"
+    },
+    {
+      "family": "dlss",
+      "version": "310.6.0.0",
+      "release_date": "2026-03-06",
+      "changes": [
+        "DLSS 4 transformer line update; reduced ghosting on high-contrast edges vs 310.5"
+      ],
+      "known_issues": [],
+      "recommended_preset": "K"
+    },
+    {
+      "family": "dlss_g",
+      "version": "310.7.0.0",
+      "release_date": "2026-05-06",
+      "changes": [
+        "Frame Generation build aligned with DLSS 310.7; includes the multi-frame generation (MFG) pipeline"
+      ],
+      "known_issues": [],
+      "recommended_preset": null
+    },
+    {
+      "family": "dlss_d",
+      "version": "310.7.0.0",
+      "release_date": "2026-05-14",
+      "changes": [
+        "Ray Reconstruction transformer denoiser aligned with DLSS 310.7"
+      ],
+      "known_issues": [],
+      "recommended_preset": null
+    },
+    {
+      "family": "xess",
+      "version": "2.0.2.68",
+      "release_date": "2025-10-17",
+      "changes": [
+        "XeSS 2.0.2 SDK build; stability and game-compatibility fixes over 2.0.1"
+      ],
+      "known_issues": [],
+      "recommended_preset": null
+    },
+    {
+      "family": "xess_fg",
+      "version": "1.3.1.78",
+      "release_date": "2026-03-31",
+      "changes": [
+        "XeSS Frame Generation 1.3.1; pacing improvements on Arc and non-Arc GPUs"
+      ],
+      "known_issues": [],
+      "recommended_preset": null
+    },
+    {
+      "family": "fsr",
+      "version": "1.0.2.38022",
+      "release_date": "2024-10-10",
+      "changes": [
+        "FidelityFX SDK 1.0.2 DX12 upscaler DLL (FSR 3.1.2 line)"
+      ],
+      "known_issues": [
+        "Only valid for games shipping amd_fidelityfx_dx12.dll"
+      ],
+      "recommended_preset": null
+    },
+    {
+      "family": "fsr",
+      "version": "1.0.1.42386",
+      "release_date": "2025-06-09",
+      "changes": [
+        "FidelityFX SDK Vulkan upscaler DLL (FSR 3.1.4 line)"
+      ],
+      "known_issues": [
+        "Only valid for games shipping amd_fidelityfx_vk.dll"
+      ],
+      "recommended_preset": null
+    },
+    {
+      "family": "dlss",
+      "version": "310.3.0.0",
+      "release_date": "2025-06-01",
+      "changes": [
+        "DLSS 4 transformer-model line; improved detail stability in motion",
+        "Preset K refinements over J: less ghosting on thin geometry",
+        "Reduced shimmering on vegetation vs 3.x CNN presets"
+      ],
+      "known_issues": [
+        "Slightly higher GPU cost than CNN presets on older RTX cards"
+      ],
+      "recommended_preset": "K"
+    },
+    {
+      "family": "dlss",
+      "version": "3.7.20.0",
+      "release_date": "2024-06-04",
+      "changes": [
+        "Preset E becomes the default; clearer image in motion than preset C/D",
+        "Improved temporal stability for particles"
+      ],
+      "known_issues": [],
+      "recommended_preset": "E"
+    },
+    {
+      "family": "dlss_d",
+      "version": "3.5.0.0",
+      "release_date": "2023-09-21",
+      "changes": [
+        "First release of Ray Reconstruction (denoiser replacement for RT games)"
+      ],
+      "known_issues": [
+        "Only affects games that ship RR support; swapping it in elsewhere does nothing"
+      ],
+      "recommended_preset": null
+    },
+    {
+      "family": "dlss_g",
+      "version": "3.7.10.0",
+      "release_date": "2024-05-01",
+      "changes": [
+        "Frame Generation pacing improvements; fewer micro-stutters with VRR displays"
+      ],
+      "known_issues": [],
+      "recommended_preset": null
+    }
+  ]
+}

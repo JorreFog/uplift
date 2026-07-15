@@ -1,0 +1,16 @@
+node_modules
+dist
+src-tauri/target
+*.log
+
+# DLL zips staged for upload as GitHub release assets (tag: dll-archive) —
+# too large for the repo itself.
+dll-archive/
+
+# Tauri updater signing keys — never commit these.
+*.key
+*.key.pub
+
+# Local tool state / generated schemas
+.claude/
+src-tauri/gen/
