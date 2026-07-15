@@ -7,6 +7,8 @@ auto-update.
 
 Built with **Tauri 2 (Rust)** + **Svelte 5**. Windows-first.
 
+<img width="968" height="632" alt="Screenshot 2026-07-15 160228" src="https://github.com/user-attachments/assets/fdcd3980-5cfd-4ee5-8039-44388e360825" />
+
 ## Install
 
 Download the latest `Uplift_x.y.z_x64-setup.exe` (NSIS) or `.msi` from
@@ -39,6 +41,8 @@ notifies you and installs it in one click from Settings.
   refuse-if-running, filename matching so a DX12 FSR build can never land on
   a Vulkan DLL, and a block/warn anti-cheat list (Vanguard, RICOCHET and
   friends are hard-blocked).
+
+  <img width="967" height="630" alt="Screenshot 2026-07-15 160212" src="https://github.com/user-attachments/assets/e6683ab0-0a02-4dee-bfcd-54dbf540378a" />
 
 ## Building from source
 
