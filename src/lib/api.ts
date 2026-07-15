@@ -21,6 +21,9 @@ export const api = {
     invoke<GamePresets>("get_game_presets", { gameId }),
   setGamePreset: (gameId: number, family: string, value: number) =>
     invoke<GamePresets>("set_game_preset", { gameId, family, value }),
+  getDlssIndicator: () => invoke<boolean>("get_dlss_indicator"),
+  setDlssIndicator: (enabled: boolean) =>
+    invoke<boolean>("set_dlss_indicator", { enabled }),
   getSettings: () => invoke<Settings>("get_settings"),
   setSettings: (settings: Settings) => invoke<void>("set_settings", { settings }),
 };

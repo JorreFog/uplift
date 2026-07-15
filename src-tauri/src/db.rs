@@ -55,7 +55,14 @@ impl Db {
             );
             CREATE TABLE IF NOT EXISTS prefs (
                 game_id INTEGER PRIMARY KEY REFERENCES games(id) ON DELETE CASCADE,
-                auto_update INTEGER NOT NULL DEFAULT 0
+                auto_update INTEGER NOT NULL DEFAULT 0,
+                reapply INTEGER NOT NULL DEFAULT 1
+            );
+            CREATE TABLE IF NOT EXISTS desired (
+                game_id INTEGER NOT NULL REFERENCES games(id) ON DELETE CASCADE,
+                family TEXT NOT NULL,
+                version TEXT NOT NULL,
+                PRIMARY KEY (game_id, family)
             );
             CREATE TABLE IF NOT EXISTS pins (
                 game_id INTEGER NOT NULL REFERENCES games(id) ON DELETE CASCADE,
@@ -95,9 +102,13 @@ impl Db {
             );
             "#,
         )?;
-        // Migration for databases created before cover_url existed; the error
-        // when the column is already there is expected and ignored.
+        // Migrations for databases created before these columns existed; the
+        // error when a column is already there is expected and ignored.
         let _ = conn.execute("ALTER TABLE games ADD COLUMN cover_url TEXT", []);
+        let _ = conn.execute(
+            "ALTER TABLE prefs ADD COLUMN reapply INTEGER NOT NULL DEFAULT 1",
+            [],
+        );
         Ok(Db(Mutex::new(conn)))
     }
 
@@ -142,6 +153,52 @@ impl Db {
             ])?;
         }
         Ok(())
+    }
+
+    /// Update one installed DLL row after an out-of-band version change.
+    pub fn update_dll_version(&self, game_id: i64, path: &str, version: &str) -> Result<()> {
+        let conn = self.0.lock().unwrap();
+        conn.execute(
+            "UPDATE dlls SET version = ?3 WHERE game_id = ?1 AND path = ?2",
+            params![game_id, path, version],
+        )?;
+        Ok(())
+    }
+
+    // ---- desired versions (drive re-apply after game updates) --------------
+
+    /// Remember the version the user chose for a game+family.
+    pub fn set_desired(&self, game_id: i64, family: Family, version: &str) -> Result<()> {
+        let conn = self.0.lock().unwrap();
+        conn.execute(
+            "INSERT INTO desired (game_id, family, version) VALUES (?1, ?2, ?3)
+             ON CONFLICT(game_id, family) DO UPDATE SET version = ?3",
+            params![game_id, family.as_str(), version],
+        )?;
+        Ok(())
+    }
+
+    /// Forget the choice (the user restored the original DLL).
+    pub fn clear_desired(&self, game_id: i64, family: Family) -> Result<()> {
+        let conn = self.0.lock().unwrap();
+        conn.execute(
+            "DELETE FROM desired WHERE game_id = ?1 AND family = ?2",
+            params![game_id, family.as_str()],
+        )?;
+        Ok(())
+    }
+
+    pub fn get_desired(&self) -> Result<Vec<(i64, Family, String)>> {
+        let conn = self.0.lock().unwrap();
+        let mut stmt = conn.prepare("SELECT game_id, family, version FROM desired")?;
+        let rows = stmt
+            .query_map([], |r| {
+                Ok((r.get::<_, i64>(0)?, r.get::<_, String>(1)?, r.get::<_, String>(2)?))
+            })?
+            .filter_map(|r| r.ok())
+            .filter_map(|(id, fam, ver)| Family::from_str(&fam).map(|f| (id, f, ver)))
+            .collect();
+        Ok(rows)
     }
 
     /// Store resolved box-art URLs, keyed by steam appid.
@@ -197,7 +254,7 @@ impl Db {
             "SELECT family, path, file_name, version FROM dlls WHERE game_id = ?1",
         )?;
         let mut pref_stmt =
-            conn.prepare("SELECT auto_update FROM prefs WHERE game_id = ?1")?;
+            conn.prepare("SELECT auto_update, reapply FROM prefs WHERE game_id = ?1")?;
         let mut pin_stmt =
             conn.prepare("SELECT family, version FROM pins WHERE game_id = ?1")?;
 
@@ -217,10 +274,14 @@ impl Db {
                 })?
                 .filter_map(|r| r.ok())
                 .collect();
-            g.prefs.auto_update = pref_stmt
-                .query_row(params![g.id], |r| r.get::<_, i64>(0))
-                .map(|v| v != 0)
-                .unwrap_or(false);
+            if let Ok((auto, reapply)) = pref_stmt
+                .query_row(params![g.id], |r| {
+                    Ok((r.get::<_, i64>(0)? != 0, r.get::<_, i64>(1)? != 0))
+                })
+            {
+                g.prefs.auto_update = auto;
+                g.prefs.reapply = reapply;
+            }
             g.prefs.pins = pin_stmt
                 .query_map(params![g.id], |r| {
                     Ok((r.get::<_, String>(0)?, r.get::<_, String>(1)?))
@@ -234,9 +295,9 @@ impl Db {
     pub fn set_prefs(&self, game_id: i64, prefs: &GamePrefs) -> Result<()> {
         let conn = self.0.lock().unwrap();
         conn.execute(
-            "INSERT INTO prefs (game_id, auto_update) VALUES (?1, ?2)
-             ON CONFLICT(game_id) DO UPDATE SET auto_update = ?2",
-            params![game_id, prefs.auto_update as i64],
+            "INSERT INTO prefs (game_id, auto_update, reapply) VALUES (?1, ?2, ?3)
+             ON CONFLICT(game_id) DO UPDATE SET auto_update = ?2, reapply = ?3",
+            params![game_id, prefs.auto_update as i64, prefs.reapply as i64],
         )?;
         conn.execute("DELETE FROM pins WHERE game_id = ?1", params![game_id])?;
         let mut stmt =

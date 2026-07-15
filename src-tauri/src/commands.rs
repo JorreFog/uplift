@@ -1,6 +1,6 @@
 use crate::db::Db;
 use crate::models::*;
-use crate::{background, dll, downloads, presets, remote, scanners, swap};
+use crate::{background, dll, downloads, indicator, presets, remote, scanners, swap};
 use std::path::Path;
 use tauri::{AppHandle, State};
 
@@ -75,6 +75,8 @@ pub async fn scan_games(db: State<'_, Db>) -> CmdResult<LibraryPayload> {
     }
     // Box art is cosmetic: resolve current URLs if online, keep scanning if not.
     let _ = remote::refresh_covers(&db).await;
+    // A rescan is when reverted DLLs become visible — put the chosen builds back.
+    let _ = background::reapply_pass(&db).await;
     build_payload(&db)
 }
 
@@ -181,6 +183,9 @@ pub async fn swap_dll(
         .map_err(err)?;
     }
 
+    // Remember the choice so game updates that revert it get re-applied.
+    db.set_desired(game_id, family, &version).map_err(err)?;
+
     // Reflect the new version without a full rescan.
     let mut dlls = game.dlls.clone();
     for d in dlls.iter_mut() {
@@ -217,6 +222,8 @@ pub fn restore_dll(db: State<Db>, game_id: i64, family: String) -> CmdResult<Lib
         )
         .map_err(err)?;
     }
+    // The user went back to the original — stop defending a chosen version.
+    db.clear_desired(game_id, family).map_err(err)?;
     let mut dlls = game.dlls.clone();
     for d in dlls.iter_mut() {
         if d.family == family && d.has_backup {
@@ -262,6 +269,21 @@ pub async fn set_game_preset(
     .await
     .map_err(err)?
     .map_err(err)
+}
+
+#[tauri::command]
+pub fn get_dlss_indicator() -> bool {
+    indicator::indicator_enabled()
+}
+
+/// Toggle the global NGX on-screen indicator. Triggers a UAC prompt.
+#[tauri::command]
+pub async fn set_dlss_indicator(enabled: bool) -> CmdResult<bool> {
+    tauri::async_runtime::spawn_blocking(move || indicator::set_indicator(enabled))
+        .await
+        .map_err(err)?
+        .map_err(err)?;
+    Ok(indicator::indicator_enabled())
 }
 
 #[tauri::command]

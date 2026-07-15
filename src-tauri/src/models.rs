@@ -137,11 +137,24 @@ pub struct Game {
     pub anticheat: Option<String>,
 }
 
-#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct GamePrefs {
     pub auto_update: bool,
+    /// Re-apply the user's chosen DLL version when a game update reverts it.
+    #[serde(default = "default_true")]
+    pub reapply: bool,
     /// family -> pinned version ("" means unpinned)
     pub pins: std::collections::HashMap<String, String>,
+}
+
+fn default_true() -> bool {
+    true
+}
+
+impl Default for GamePrefs {
+    fn default() -> Self {
+        GamePrefs { auto_update: false, reapply: true, pins: Default::default() }
+    }
 }
 
 /// One downloadable DLL release, from the remote releases manifest.

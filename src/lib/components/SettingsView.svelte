@@ -6,6 +6,8 @@
   import { api } from "../api";
 
   let saving = $state(false);
+  let indicator = $state(false);
+  let indicatorBusy = $state(false);
 
   onMount(async () => {
     try {
@@ -13,7 +15,26 @@
     } catch {
       /* autostart plugin unavailable in dev on some setups */
     }
+    try {
+      indicator = await api.getDlssIndicator();
+    } catch {
+      /* non-windows/dev */
+    }
   });
+
+  async function toggleIndicator() {
+    indicatorBusy = true;
+    try {
+      indicator = await api.setDlssIndicator(!indicator);
+      app.toast("ok", indicator
+        ? "DLSS indicator enabled — games now draw the NGX debug overlay"
+        : "DLSS indicator disabled");
+    } catch (e) {
+      app.toast("err", String(e));
+    } finally {
+      indicatorBusy = false;
+    }
+  }
 
   async function save() {
     saving = true;
@@ -74,6 +95,22 @@
 </div>
 
 <div class="panel">
+  <h3>DLSS indicator overlay</h3>
+  <p class="version">
+    {indicator ? "ON — games draw NVIDIA's version/preset overlay" : "off"}
+  </p>
+  <button onclick={toggleIndicator} disabled={indicatorBusy}>
+    {indicatorBusy ? "Waiting for admin approval…" : indicator ? "Disable indicator" : "Enable indicator"}
+  </button>
+  <p class="hint">
+    Shows NVIDIA's on-screen debug overlay in every DLSS game: loaded DLL
+    version, render preset and mode — proof that your swap or preset override
+    is actually active. System-wide; changing it asks for administrator
+    approval. Remember to turn it off after checking.
+  </p>
+</div>
+
+<div class="panel">
   <h3>App updates</h3>
   <p class="version">
     Uplift {updater.current || "(dev)"}
@@ -124,5 +161,6 @@
   .about p { color: var(--muted); font-size: 13px; margin: 0; }
   h3 { font-size: 14px; }
   .version { color: var(--muted); font-size: 13px; margin: 0; font-family: var(--font-mono); }
+  .hint { color: var(--faint); font-size: 12px; margin: 0; }
   .badge { color: var(--mint); margin-left: 6px; }
 </style>

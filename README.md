@@ -42,6 +42,13 @@ notifies you and installs it in one click from Settings.
   straight into the NVIDIA driver profile, the same way NVIDIA Profile
   Inspector does. Each preset carries a short description, and the
   community-recommended preset is the default suggestion.
+- **Survives game updates** — when a patch silently restores the stock DLL,
+  Uplift notices (background check and on every rescan) and re-applies the
+  version you chose. Per game, on by default, guarded by the same
+  anti-cheat/running checks as everything else.
+- **DLSS indicator toggle** — one click in Settings turns on NVIDIA's
+  on-screen NGX overlay so you can verify in-game which DLL version and
+  preset are actually active.
 - **Safety rails** — SHA-256 verification of every download against the
   manifest, sacred first-swap backups (`*.uplift.bak`) with one-click restore,
   refuse-if-running, filename matching so a DX12 FSR build can never land on

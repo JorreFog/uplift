@@ -1,8 +1,9 @@
-mod background;
+pub mod background;
 mod commands;
 pub mod db;
 pub mod dll;
 pub mod downloads;
+mod indicator;
 pub mod models;
 pub mod presets;
 mod remote;
@@ -42,6 +43,8 @@ pub fn run() {
             commands::set_game_prefs,
             commands::get_game_presets,
             commands::set_game_preset,
+            commands::get_dlss_indicator,
+            commands::set_dlss_indicator,
             commands::get_settings,
             commands::set_settings,
         ])

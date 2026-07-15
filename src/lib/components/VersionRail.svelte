@@ -13,9 +13,9 @@
     selected: string | null;
   } = $props();
 
-  // Oldest → newest along the trace, capped to the most recent 8 pads.
+  // Oldest → newest along the trace; the full archive, scrollable.
   const sorted = $derived(
-    [...releases].sort((a, b) => versionCmp(a.version, b.version)).slice(-8)
+    [...releases].sort((a, b) => versionCmp(a.version, b.version))
   );
 
   const installedKnown = $derived(sorted.some((r) => r.version === installed));
@@ -25,44 +25,66 @@
     if (versionCmp(r.version, installed) > 0) return "ahead";
     return "past";
   }
+
+  // Start with the installed (or selected) pad centred; newest at the right
+  // edge when the installed version is unknown.
+  let railEl = $state<HTMLDivElement | null>(null);
+  $effect(() => {
+    void sorted;
+    const el = railEl;
+    if (!el) return;
+    const target = el.querySelector<HTMLElement>(".pad.selected, .pad.installed");
+    if (target?.parentElement) {
+      const wrap = target.parentElement;
+      el.scrollLeft = wrap.offsetLeft - el.clientWidth / 2 + wrap.clientWidth / 2;
+    } else {
+      el.scrollLeft = el.scrollWidth;
+    }
+  });
 </script>
 
-<div class="rail" role="listbox" aria-label="Available versions">
-  <!-- the copper trace -->
-  <div class="trace" aria-hidden="true"></div>
-  {#if !installedKnown && installed !== "unknown"}
-    <div class="pad-wrap">
-      <span class="pad installed off-manifest" title="Installed version (not in the release manifest)"></span>
-      <span class="label mono current">{installed}</span>
-    </div>
-  {/if}
-  {#each sorted as r (r.version)}
-    <div class="pad-wrap">
-      <button
-        class="pad {padState(r)}"
-        class:selected={selected === r.version}
-        role="option"
-        aria-selected={selected === r.version}
-        title={r.release_date ?? r.version}
-        onclick={() => onselect(r.version)}
-      >
-        {#if r.downloaded}<span class="dot" title="In your library"></span>{/if}
-      </button>
-      <span class="label mono" class:current={r.version === installed}>
-        {r.version}
-      </span>
-    </div>
-  {/each}
+<div class="rail" bind:this={railEl} role="listbox" aria-label="Available versions">
+  <!-- inner track scrolls as one piece so the trace spans every pad -->
+  <div class="track">
+    <div class="trace" aria-hidden="true"></div>
+    {#if !installedKnown && installed !== "unknown"}
+      <div class="pad-wrap">
+        <span class="pad installed off-manifest" title="Installed version (not in the release manifest)"></span>
+        <span class="label mono current">{installed}</span>
+      </div>
+    {/if}
+    {#each sorted as r (r.version)}
+      <div class="pad-wrap">
+        <button
+          class="pad {padState(r)}"
+          class:selected={selected === r.version}
+          role="option"
+          aria-selected={selected === r.version}
+          title={r.release_date ?? r.version}
+          onclick={() => onselect(r.version)}
+        >
+          {#if r.downloaded}<span class="dot" title="In your library"></span>{/if}
+        </button>
+        <span class="label mono" class:current={r.version === installed}>
+          {r.version}
+        </span>
+      </div>
+    {/each}
+  </div>
 </div>
 
 <style>
   .rail {
+    overflow-x: auto;
+    scroll-behavior: smooth;
+  }
+  .track {
     position: relative;
-    display: flex;
+    display: inline-flex;
     align-items: flex-start;
     gap: 26px;
     padding: 12px 6px 2px;
-    overflow-x: auto;
+    min-width: 100%;
   }
   .trace {
     position: absolute;

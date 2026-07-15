@@ -10,8 +10,8 @@ use std::path::{Path, PathBuf};
 
 use uplift_lib::db::Db;
 use uplift_lib::dll::read_file_version;
-use uplift_lib::models::{Family, Release};
-use uplift_lib::{downloads, swap};
+use uplift_lib::models::{Family, InstalledDll, Platform, Release};
+use uplift_lib::{background, downloads, swap};
 
 fn archive_dir() -> Option<PathBuf> {
     let dir = Path::new(env!("CARGO_MANIFEST_DIR")).join("../dll-archive");
@@ -160,6 +160,34 @@ async fn download_verify_swap_restore() {
 
     let swaps = db.get_swaps(10).unwrap();
     assert_eq!(swaps.len(), 3, "two swaps + one restore recorded");
+
+    // --- re-apply pass: a "game update" reverted the DLL to 310.6 -----------
+    // Register the fake game with its DLL and remember 310.7 as the choice.
+    let game_id = db
+        .upsert_game("Fake Game", Platform::Steam, game_dir.to_str().unwrap(), None)
+        .unwrap();
+    db.replace_dlls(
+        game_id,
+        &[InstalledDll {
+            family: Family::Dlss,
+            path: target.to_string_lossy().into_owned(),
+            file_name: "nvngx_dlss.dll".into(),
+            version: "310.6.0.0".into(),
+            has_backup: true,
+        }],
+    )
+    .unwrap();
+    db.set_desired(game_id, Family::Dlss, "310.7.0.0").unwrap();
+
+    // The file on disk is 310.6 (the restore above) — exactly the state after
+    // a game update stomped the swap. The pass must put 310.7 back.
+    let messages = background::reapply_pass(&db).await;
+    assert_eq!(messages.len(), 1, "one re-apply message, got: {messages:?}");
+    assert_eq!(read_file_version(&target).unwrap(), "310.7.0.0");
+
+    // Second run must be a no-op — nothing is reverted anymore.
+    let messages = background::reapply_pass(&db).await;
+    assert!(messages.is_empty(), "re-apply must be idempotent");
 
     let _ = std::fs::remove_dir_all(&tmp);
 }

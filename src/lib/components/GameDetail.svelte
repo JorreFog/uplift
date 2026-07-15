@@ -110,6 +110,16 @@
     }
   }
 
+  async function toggleReapply() {
+    const prefs = { ...game.prefs, reapply: !game.prefs.reapply };
+    try {
+      await api.setGamePrefs(game.id, prefs);
+      game.prefs.reapply = prefs.reapply;
+    } catch (e) {
+      app.toast("err", String(e));
+    }
+  }
+
   async function togglePin(family: Family, version: string) {
     const pins = { ...game.prefs.pins };
     pins[family] = pins[family] === version ? "" : version;
@@ -161,6 +171,15 @@
         onchange={toggleAuto}
       />
       Auto-update DLLs in this game when new versions release
+    </label>
+    <label>
+      <input
+        type="checkbox"
+        checked={game.prefs.reapply}
+        disabled={acFlag !== null}
+        onchange={toggleReapply}
+      />
+      Re-apply my chosen version when a game update reverts it
     </label>
   </div>
 

@@ -12,6 +12,8 @@ export interface InstalledDll {
 
 export interface GamePrefs {
   auto_update: boolean;
+  /** Re-apply the chosen DLL version when a game update reverts it. */
+  reapply: boolean;
   pins: Record<string, string>;
 }
 

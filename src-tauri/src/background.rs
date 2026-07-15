@@ -37,6 +37,12 @@ pub async fn run_cycle(app: &AppHandle) -> String {
     // failure and would otherwise skip this while the manifest is unreachable.
     let _ = remote::refresh_covers(&db).await;
 
+    // Defend user-chosen versions against game updates (works offline too,
+    // as long as the chosen build is already in the local library).
+    for msg in reapply_pass(&db).await {
+        notify(app, "Version re-applied", &msg);
+    }
+
     let outcome = match remote::refresh(&db).await {
         Ok(o) => o,
         Err(e) => return format!("refresh failed: {e:#}"),
@@ -81,6 +87,86 @@ pub async fn run_cycle(app: &AppHandle) -> String {
         (n, "") => format!("{n} new release(s)"),
         (n, s) => format!("{n} new release(s); {s}"),
     }
+}
+
+/// Re-apply user-chosen DLL versions that a game update silently reverted.
+/// Steam and friends restore stock DLLs on every patch; this pass reads the
+/// real on-disk versions of every family with a remembered choice and swaps
+/// the chosen build back in. Guards: per-game `reapply` pref, anti-cheat
+/// flag, game not running, filename match, verified download.
+pub async fn reapply_pass(db: &Db) -> Vec<String> {
+    let mut messages = vec![];
+    let desired = db.get_desired().unwrap_or_default();
+    if desired.is_empty() {
+        return messages;
+    }
+    let games = db.get_games().unwrap_or_default();
+    let anticheat = remote::cached_anticheat(db);
+
+    for (game_id, family, version) in desired {
+        let Some(game) = games.iter().find(|g| g.id == game_id) else {
+            continue;
+        };
+        if !game.prefs.reapply {
+            continue;
+        }
+        if remote::anticheat_for(&anticheat, &game.name, game.steam_appid).is_some() {
+            continue;
+        }
+        // Compare the actual PE versions on disk — the DB may be stale.
+        let reverted: Vec<_> = game
+            .dlls
+            .iter()
+            .filter(|d| d.family == family)
+            .filter(|d| {
+                crate::dll::read_file_version(Path::new(&d.path))
+                    .map(|v| v != version)
+                    .unwrap_or(false)
+            })
+            .collect();
+        if reverted.is_empty() {
+            continue;
+        }
+        if swap::game_is_running(Path::new(&game.install_dir)) {
+            continue;
+        }
+        let Ok(source) = downloads::download_release(db, family, &version).await else {
+            continue;
+        };
+        let source_name = Path::new(&source)
+            .file_name()
+            .map(|n| n.to_string_lossy().to_ascii_lowercase())
+            .unwrap_or_default();
+        let mut applied = false;
+        for dll in reverted
+            .iter()
+            .filter(|d| d.file_name.to_ascii_lowercase() == source_name)
+        {
+            let plan = swap::SwapPlan {
+                db,
+                game_id,
+                game_install_dir: Path::new(&game.install_dir),
+                family,
+                dll_path: Path::new(&dll.path),
+                source_path: Path::new(&source),
+                to_version: &version,
+                automatic: true,
+            };
+            if swap::swap(plan).is_ok() {
+                let _ = db.update_dll_version(game_id, &dll.path, &version);
+                applied = true;
+            }
+        }
+        if applied {
+            messages.push(format!(
+                "{} reverted {} by a game update — re-applied {}",
+                game.name,
+                family_label(family),
+                version
+            ));
+        }
+    }
+    messages
 }
 
 /// Swap every eligible DLL of every game that opted in. Guards, in order:
@@ -128,6 +214,15 @@ async fn auto_update_pass(app: &AppHandle) -> String {
             else {
                 continue;
             };
+            // Same guard as manual swaps: a release only lands on a DLL with
+            // the same file name (FSR spans non-interchangeable variants).
+            let source_name = Path::new(&source)
+                .file_name()
+                .map(|n| n.to_string_lossy().to_ascii_lowercase())
+                .unwrap_or_default();
+            if dll.file_name.to_ascii_lowercase() != source_name {
+                continue;
+            }
             let plan = swap::SwapPlan {
                 db: &db,
                 game_id: game.id,
@@ -139,6 +234,8 @@ async fn auto_update_pass(app: &AppHandle) -> String {
                 automatic: true,
             };
             if swap::swap(plan).is_ok() {
+                let _ = db.update_dll_version(game.id, &dll.path, &latest.version);
+                let _ = db.set_desired(game.id, dll.family, &latest.version);
                 swapped += 1;
                 if !swapped_names.contains(&game.name) {
                     swapped_names.push(game.name.clone());
