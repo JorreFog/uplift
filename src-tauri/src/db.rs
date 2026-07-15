@@ -64,6 +64,20 @@ impl Db {
                 version TEXT NOT NULL,
                 PRIMARY KEY (game_id, family)
             );
+            CREATE TABLE IF NOT EXISTS crashwatch (
+                game_id INTEGER PRIMARY KEY REFERENCES games(id) ON DELETE CASCADE,
+                since TEXT NOT NULL,
+                crashes INTEGER NOT NULL DEFAULT 0
+            );
+            CREATE TABLE IF NOT EXISTS benchmarks (
+                id INTEGER PRIMARY KEY,
+                game_id INTEGER NOT NULL REFERENCES games(id) ON DELETE CASCADE,
+                at TEXT NOT NULL,
+                duration_s INTEGER NOT NULL,
+                frames INTEGER NOT NULL,
+                avg_fps REAL NOT NULL,
+                low_1pct REAL NOT NULL
+            );
             CREATE TABLE IF NOT EXISTS pins (
                 game_id INTEGER NOT NULL REFERENCES games(id) ON DELETE CASCADE,
                 family TEXT NOT NULL,
@@ -199,6 +213,91 @@ impl Db {
             .filter_map(|(id, fam, ver)| Family::from_str(&fam).map(|f| (id, f, ver)))
             .collect();
         Ok(rows)
+    }
+
+    // ---- benchmarks ---------------------------------------------------------
+
+    pub fn add_benchmark(&self, game_id: i64, b: &crate::bench::BenchResult) -> Result<()> {
+        let conn = self.0.lock().unwrap();
+        conn.execute(
+            "INSERT INTO benchmarks (game_id, at, duration_s, frames, avg_fps, low_1pct)
+             VALUES (?1, ?2, ?3, ?4, ?5, ?6)",
+            params![
+                game_id,
+                chrono::Utc::now().to_rfc3339(),
+                b.duration_s,
+                b.frames,
+                b.avg_fps,
+                b.low_1pct
+            ],
+        )?;
+        Ok(())
+    }
+
+    pub fn get_benchmarks(&self, game_id: i64, limit: u32) -> Result<Vec<BenchRecord>> {
+        let conn = self.0.lock().unwrap();
+        let mut stmt = conn.prepare(
+            "SELECT id, at, duration_s, frames, avg_fps, low_1pct FROM benchmarks
+             WHERE game_id = ?1 ORDER BY id DESC LIMIT ?2",
+        )?;
+        let rows = stmt
+            .query_map(params![game_id, limit], |r| {
+                Ok(BenchRecord {
+                    id: r.get(0)?,
+                    at: r.get(1)?,
+                    duration_s: r.get(2)?,
+                    frames: r.get(3)?,
+                    avg_fps: r.get(4)?,
+                    low_1pct: r.get(5)?,
+                })
+            })?
+            .filter_map(|r| r.ok())
+            .collect();
+        Ok(rows)
+    }
+
+    // ---- crash watch (post-swap health monitoring) --------------------------
+
+    /// Begin (or reset) watching a game after a swap.
+    pub fn start_crashwatch(&self, game_id: i64) -> Result<()> {
+        let conn = self.0.lock().unwrap();
+        conn.execute(
+            "INSERT INTO crashwatch (game_id, since, crashes) VALUES (?1, ?2, 0)
+             ON CONFLICT(game_id) DO UPDATE SET since = ?2, crashes = 0",
+            params![game_id, chrono::Utc::now().to_rfc3339()],
+        )?;
+        Ok(())
+    }
+
+    pub fn get_crashwatch(&self) -> Result<Vec<(i64, u32)>> {
+        let conn = self.0.lock().unwrap();
+        let mut stmt = conn.prepare("SELECT game_id, crashes FROM crashwatch")?;
+        let rows = stmt
+            .query_map([], |r| Ok((r.get(0)?, r.get(1)?)))?
+            .filter_map(|r| r.ok())
+            .collect();
+        Ok(rows)
+    }
+
+    /// Record one crash; returns the new count.
+    pub fn bump_crash(&self, game_id: i64) -> Result<u32> {
+        let conn = self.0.lock().unwrap();
+        conn.execute(
+            "UPDATE crashwatch SET crashes = crashes + 1 WHERE game_id = ?1",
+            params![game_id],
+        )?;
+        let n = conn.query_row(
+            "SELECT crashes FROM crashwatch WHERE game_id = ?1",
+            params![game_id],
+            |r| r.get(0),
+        )?;
+        Ok(n)
+    }
+
+    pub fn clear_crashwatch(&self, game_id: i64) -> Result<()> {
+        let conn = self.0.lock().unwrap();
+        conn.execute("DELETE FROM crashwatch WHERE game_id = ?1", params![game_id])?;
+        Ok(())
     }
 
     /// Store resolved box-art URLs, keyed by steam appid.

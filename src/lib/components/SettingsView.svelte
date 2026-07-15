@@ -4,6 +4,7 @@
   import { app } from "../stores.svelte";
   import { updater } from "../updater.svelte";
   import { api } from "../api";
+  import { ACCENTS, type Accent, type Theme } from "../types";
 
   let saving = $state(false);
   let indicator = $state(false);
@@ -21,6 +22,17 @@
       /* non-windows/dev */
     }
   });
+
+  // Appearance applies live and persists immediately — no Save button needed.
+  async function setAppearance(theme: Theme, accent: Accent) {
+    app.settings.theme = theme;
+    app.settings.accent = accent;
+    try {
+      await api.setSettings($state.snapshot(app.settings));
+    } catch (e) {
+      app.toast("err", String(e));
+    }
+  }
 
   async function toggleIndicator() {
     indicatorBusy = true;
@@ -95,6 +107,38 @@
 </div>
 
 <div class="panel">
+  <h3>Appearance</h3>
+  <div class="appearance-row">
+    <span class="row-label">Theme</span>
+    <div class="seg">
+      {#each ["dark", "light"] as const as t}
+        <button
+          class:active={app.settings.theme === t}
+          onclick={() => setAppearance(t, app.settings.accent)}
+        >
+          {t === "dark" ? "Dark" : "Light"}
+        </button>
+      {/each}
+    </div>
+  </div>
+  <div class="appearance-row">
+    <span class="row-label">Accent</span>
+    <div class="swatches">
+      {#each ACCENTS as a}
+        <button
+          class="swatch"
+          class:active={app.settings.accent === a.id}
+          style="--sw: {a.swatch}"
+          title={a.label}
+          aria-label={a.label}
+          onclick={() => setAppearance(app.settings.theme, a.id)}
+        ></button>
+      {/each}
+    </div>
+  </div>
+</div>
+
+<div class="panel">
   <h3>DLSS indicator overlay</h3>
   <p class="version">
     {indicator ? "ON — games draw NVIDIA's version/preset overlay" : "off"}
@@ -162,5 +206,30 @@
   h3 { font-size: 14px; }
   .version { color: var(--muted); font-size: 13px; margin: 0; font-family: var(--font-mono); }
   .hint { color: var(--faint); font-size: 12px; margin: 0; }
+
+  .appearance-row { display: flex; align-items: center; gap: 14px; }
+  .row-label { color: var(--muted); font-size: 13px; min-width: 52px; }
+  .seg { display: flex; gap: 6px; }
+  .seg button.active {
+    border-color: var(--copper);
+    color: var(--copper);
+    background: var(--copper-glow);
+  }
+  .swatches { display: flex; gap: 10px; }
+  .swatch {
+    width: 26px;
+    height: 26px;
+    padding: 0;
+    border-radius: 50%;
+    background: var(--sw);
+    border: 2px solid transparent;
+    box-shadow: 0 0 0 1px var(--line-bright);
+    transition: transform 120ms, box-shadow 120ms;
+  }
+  .swatch:hover { transform: scale(1.12); }
+  .swatch.active {
+    border-color: var(--bg);
+    box-shadow: 0 0 0 2px var(--copper);
+  }
   .badge { color: var(--mint); margin-left: 6px; }
 </style>

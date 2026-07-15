@@ -1,6 +1,6 @@
 use crate::db::Db;
 use crate::models::*;
-use crate::{background, dll, downloads, indicator, presets, remote, scanners, swap};
+use crate::{background, bench, dll, downloads, indicator, presets, remote, scanners, swap};
 use std::path::Path;
 use tauri::{AppHandle, State};
 
@@ -185,6 +185,8 @@ pub async fn swap_dll(
 
     // Remember the choice so game updates that revert it get re-applied.
     db.set_desired(game_id, family, &version).map_err(err)?;
+    // Watch the next sessions: repeated quick crashes trigger auto-rollback.
+    db.start_crashwatch(game_id).map_err(err)?;
 
     // Reflect the new version without a full rescan.
     let mut dlls = game.dlls.clone();
@@ -269,6 +271,38 @@ pub async fn set_game_preset(
     .await
     .map_err(err)?
     .map_err(err)
+}
+
+/// Timed frametime capture of a running game (blocks ~`seconds`; one UAC
+/// prompt per capture). Returns the game's benchmark history, newest first.
+#[tauri::command]
+pub async fn run_benchmark(
+    db: State<'_, Db>,
+    game_id: i64,
+    seconds: u32,
+) -> CmdResult<Vec<BenchRecord>> {
+    let seconds = seconds.clamp(10, 120);
+    let games = db.get_games().map_err(err)?;
+    let game = games.iter().find(|g| g.id == game_id).ok_or("game not found")?;
+    let dir = std::path::PathBuf::from(&game.install_dir);
+    if !swap::game_is_running(&dir) {
+        return Err("Start the game first — the capture measures a live session.".into());
+    }
+    let exe = presets::main_exe(&dir).ok_or("could not find the game's executable")?;
+    let presentmon = bench::ensure_presentmon().await.map_err(err)?;
+    let result = tauri::async_runtime::spawn_blocking(move || {
+        bench::capture(&presentmon, &exe, seconds)
+    })
+    .await
+    .map_err(err)?
+    .map_err(err)?;
+    db.add_benchmark(game_id, &result).map_err(err)?;
+    db.get_benchmarks(game_id, 20).map_err(err)
+}
+
+#[tauri::command]
+pub fn get_benchmarks(db: State<Db>, game_id: i64) -> CmdResult<Vec<BenchRecord>> {
+    db.get_benchmarks(game_id, 20).map_err(err)
 }
 
 #[tauri::command]

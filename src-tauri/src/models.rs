@@ -178,6 +178,17 @@ pub struct Release {
     pub downloaded: bool,
 }
 
+/// One stored frametime capture.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct BenchRecord {
+    pub id: i64,
+    pub at: String,
+    pub duration_s: u32,
+    pub frames: u32,
+    pub avg_fps: f64,
+    pub low_1pct: f64,
+}
+
 /// Community-curated changelog entry for one release.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ChangelogEntry {
@@ -230,6 +241,20 @@ pub struct Settings {
     pub minimize_to_tray: bool,
     pub notify_on_new_release: bool,
     pub launch_at_startup: bool,
+    /// "dark" | "light"
+    #[serde(default = "default_theme")]
+    pub theme: String,
+    /// Accent palette: "copper" | "mint" | "azure" | "violet"
+    #[serde(default = "default_accent")]
+    pub accent: String,
+}
+
+fn default_theme() -> String {
+    "dark".into()
+}
+
+fn default_accent() -> String {
+    "copper".into()
 }
 
 impl Default for Settings {
@@ -239,6 +264,8 @@ impl Default for Settings {
             minimize_to_tray: true,
             notify_on_new_release: true,
             launch_at_startup: false,
+            theme: default_theme(),
+            accent: default_accent(),
         }
     }
 }

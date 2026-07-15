@@ -1,4 +1,5 @@
 pub mod background;
+pub mod bench;
 mod commands;
 pub mod db;
 pub mod dll;
@@ -45,6 +46,8 @@ pub fn run() {
             commands::set_game_preset,
             commands::get_dlss_indicator,
             commands::set_dlss_indicator,
+            commands::run_benchmark,
+            commands::get_benchmarks,
             commands::get_settings,
             commands::set_settings,
         ])

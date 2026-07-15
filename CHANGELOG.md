@@ -3,6 +3,26 @@
 All notable changes to Uplift. Format loosely follows
 [Keep a Changelog](https://keepachangelog.com/); versions follow semver.
 
+## [0.4.0] - 2026-07-15
+
+### Added
+- **Crash detection + automatic rollback** — after any swap (manual, auto, or
+  re-apply) Uplift watches the game's next sessions. Two quick crashes in a
+  row automatically restore every backed-up DLL, clear the remembered
+  version so re-apply doesn't redo the damage, and notify you. One healthy
+  session (2½ minutes) ends the watch.
+- **Before/after proof** — a Proof section in every game panel captures 30
+  seconds of real frametimes via Intel's PresentMon (downloaded once from the
+  official release, hash-verified) and stores avg fps and 1% lows. Benchmark
+  before and after a swap or preset change and the panel shows the delta —
+  numbers instead of feelings.
+- **Themes** — dark and light, with four accent palettes (copper, mint,
+  azure, violet). Applies instantly, persists, lives in Settings →
+  Appearance.
+- **Launch animation** — the logo's PCB traces draw themselves across the
+  screen, solder pads pop in, the wordmark settles, and the app fades in.
+  Views now glide when switching tabs. Both respect reduced-motion settings.
+
 ## [0.3.0] - 2026-07-15
 
 ### Added

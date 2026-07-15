@@ -7,6 +7,7 @@ class AppState {
   settings = $state<Settings>({
     poll_hours: 6, minimize_to_tray: true,
     notify_on_new_release: true, launch_at_startup: false,
+    theme: "dark", accent: "copper",
   });
   busy = $state(false);
   scanning = $state(false);

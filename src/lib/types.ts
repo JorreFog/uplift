@@ -60,11 +60,22 @@ export interface SwapRecord {
   automatic: boolean;
 }
 
+export type Theme = "dark" | "light";
+export type Accent = "copper" | "mint" | "azure" | "violet";
+export const ACCENTS: { id: Accent; label: string; swatch: string }[] = [
+  { id: "copper", label: "Copper", swatch: "#e5a158" },
+  { id: "mint", label: "Mint", swatch: "#52c898" },
+  { id: "azure", label: "Azure", swatch: "#5da9e8" },
+  { id: "violet", label: "Violet", swatch: "#a98ce8" },
+];
+
 export interface Settings {
   poll_hours: number;
   minimize_to_tray: boolean;
   notify_on_new_release: boolean;
   launch_at_startup: boolean;
+  theme: Theme;
+  accent: Accent;
 }
 
 export interface LibraryPayload {
@@ -101,6 +112,16 @@ export const PLATFORM_LABEL: Record<Platform, string> = {
   xbox: "Xbox",
   manual: "Manual",
 };
+
+/** One stored frametime capture. */
+export interface BenchRecord {
+  id: number;
+  at: string;
+  duration_s: number;
+  frames: number;
+  avg_fps: number;
+  low_1pct: number;
+}
 
 // ---- DLSS driver preset overrides (NVAPI DRS) -------------------------------
 

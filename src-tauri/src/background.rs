@@ -158,6 +158,7 @@ pub async fn reapply_pass(db: &Db) -> Vec<String> {
             }
         }
         if applied {
+            let _ = db.start_crashwatch(game_id);
             messages.push(format!(
                 "{} reverted {} by a game update — re-applied {}",
                 game.name,
@@ -236,6 +237,7 @@ async fn auto_update_pass(app: &AppHandle) -> String {
             if swap::swap(plan).is_ok() {
                 let _ = db.update_dll_version(game.id, &dll.path, &latest.version);
                 let _ = db.set_desired(game.id, dll.family, &latest.version);
+                let _ = db.start_crashwatch(game.id);
                 swapped += 1;
                 if !swapped_names.contains(&game.name) {
                     swapped_names.push(game.name.clone());
@@ -263,6 +265,7 @@ async fn auto_update_pass(app: &AppHandle) -> String {
 /// Spawn the periodic poll. Interval comes from settings; re-read every cycle
 /// so changes apply without a restart.
 pub fn spawn(app: AppHandle) {
+    let watcher_app = app.clone();
     tauri::async_runtime::spawn(async move {
         // First check shortly after launch, then on the configured cadence.
         tokio::time::sleep(std::time::Duration::from_secs(20)).await;
@@ -275,4 +278,117 @@ pub fn spawn(app: AppHandle) {
             tokio::time::sleep(std::time::Duration::from_secs(u64::from(hours) * 3600)).await;
         }
     });
+    tauri::async_runtime::spawn(crash_watcher(watcher_app));
+}
+
+// ---- crash detection + automatic rollback -----------------------------------
+
+/// A session shorter than this right after a swap counts as a crash.
+const CRASH_SESSION_SECS: u64 = 150;
+/// This many crashes in a row trigger the rollback.
+const CRASH_LIMIT: u32 = 2;
+/// Process poll cadence while any game is under watch.
+const WATCH_TICK_SECS: u64 = 15;
+
+/// Watch games that just had a DLL swapped: one healthy session clears the
+/// watch; `CRASH_LIMIT` short-lived sessions in a row restore every backed-up
+/// DLL and forget the chosen versions so re-apply doesn't redo the damage.
+async fn crash_watcher(app: AppHandle) {
+    use std::collections::HashMap;
+    use std::time::Instant;
+    // game_id -> Some(session start) while the game is running.
+    let mut sessions: HashMap<i64, Option<Instant>> = HashMap::new();
+
+    loop {
+        tokio::time::sleep(std::time::Duration::from_secs(WATCH_TICK_SECS)).await;
+        let watches = {
+            let db = app.state::<Db>();
+            db.get_crashwatch().unwrap_or_default()
+        };
+        if watches.is_empty() {
+            sessions.clear();
+            continue;
+        }
+        let games = {
+            let db = app.state::<Db>();
+            db.get_games().unwrap_or_default()
+        };
+
+        for (game_id, _crashes) in watches {
+            let Some(game) = games.iter().find(|g| g.id == game_id) else {
+                let db = app.state::<Db>();
+                let _ = db.clear_crashwatch(game_id);
+                continue;
+            };
+            let install_dir = game.install_dir.clone();
+            let running = tauri::async_runtime::spawn_blocking(move || {
+                swap::game_is_running(Path::new(&install_dir))
+            })
+            .await
+            .unwrap_or(false);
+
+            let entry = sessions.entry(game_id).or_insert(None);
+            match (*entry, running) {
+                (None, true) => *entry = Some(Instant::now()),
+                (Some(started), false) => {
+                    *entry = None;
+                    let db = app.state::<Db>();
+                    if started.elapsed().as_secs() >= CRASH_SESSION_SECS {
+                        // Survived long enough — the swap is healthy.
+                        let _ = db.clear_crashwatch(game_id);
+                    } else {
+                        let crashes = db.bump_crash(game_id).unwrap_or(0);
+                        if crashes >= CRASH_LIMIT {
+                            rollback_game(&app, game).await;
+                        } else {
+                            notify(
+                                &app,
+                                "Short session detected",
+                                &format!(
+                                    "{} exited quickly after a DLL swap. One more crash and Uplift restores the original DLLs.",
+                                    game.name
+                                ),
+                            );
+                        }
+                    }
+                }
+                _ => {}
+            }
+        }
+    }
+}
+
+/// Restore every backed-up DLL of the game and clear its chosen versions.
+async fn rollback_game(app: &AppHandle, game: &Game) {
+    let db = app.state::<Db>();
+    let mut restored = 0u32;
+    for dll in game.dlls.iter().filter(|d| d.has_backup) {
+        if swap::restore(
+            &db,
+            game.id,
+            Path::new(&game.install_dir),
+            dll.family,
+            Path::new(&dll.path),
+        )
+        .is_ok()
+        {
+            let _ = db.clear_desired(game.id, dll.family);
+            if let Ok(v) = crate::dll::read_file_version(Path::new(&dll.path)) {
+                let _ = db.update_dll_version(game.id, &dll.path, &v);
+            }
+            restored += 1;
+        }
+    }
+    let _ = db.clear_crashwatch(game.id);
+    if restored > 0 {
+        notify(
+            app,
+            "Automatic rollback",
+            &format!(
+                "{} crashed twice right after a DLL swap — restored {} original DLL(s). The version rail is all yours to try something else.",
+                game.name, restored
+            ),
+        );
+        let _ = app.emit("uplift://refreshed", ());
+    }
 }

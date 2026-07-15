@@ -13,6 +13,8 @@
   --copper: #e5a158;
   --copper-dim: #a06e3c;
   --copper-glow: rgba(229, 161, 88, 0.14);
+  --copper-hover: #eeb173;
+  --on-accent: #1a1208;
   --mint: #6fd3a6;
   --amber: #e6c86e;
   --red: #e4746d;
@@ -20,6 +22,64 @@
   --font-body: "IBM Plex Sans", system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
   --radius: 10px;
+}
+
+/* ── light theme ─────────────────────────────────────────────────────────
+   Same bench, lights on: warm paper panels, ink text, accents darkened a
+   step for contrast. */
+:root[data-theme="light"] {
+  --bg: #eef0f3;
+  --panel: #ffffff;
+  --panel-2: #e7eaee;
+  --line: #d8dce2;
+  --line-bright: #c4cad3;
+  --ink: #1c222b;
+  --muted: #5a6472;
+  --faint: #8d95a2;
+  --copper: #b06f24;
+  --copper-dim: #d3a870;
+  --copper-glow: rgba(176, 111, 36, 0.14);
+  --copper-hover: #97601f;
+  --on-accent: #ffffff;
+  --mint: #1e9e69;
+  --amber: #a8841a;
+  --red: #c2453d;
+}
+
+/* ── accent variations ───────────────────────────────────────────────────
+   `--copper` is the app-wide accent token; each variant recolors it. */
+:root[data-accent="mint"] {
+  --copper: #52c898;
+  --copper-dim: #35855f;
+  --copper-glow: rgba(82, 200, 152, 0.14);
+  --copper-hover: #6fd3a6;
+  --on-accent: #08130d;
+}
+:root[data-accent="azure"] {
+  --copper: #5da9e8;
+  --copper-dim: #3a719e;
+  --copper-glow: rgba(93, 169, 232, 0.14);
+  --copper-hover: #7cbbf0;
+  --on-accent: #081019;
+}
+:root[data-accent="violet"] {
+  --copper: #a98ce8;
+  --copper-dim: #71599e;
+  --copper-glow: rgba(169, 140, 232, 0.14);
+  --copper-hover: #bda4f0;
+  --on-accent: #0f0a1a;
+}
+:root[data-theme="light"][data-accent="mint"] {
+  --copper: #178a58; --copper-dim: #6fc4a0; --copper-glow: rgba(23, 138, 88, 0.14);
+  --copper-hover: #116e45; --on-accent: #ffffff;
+}
+:root[data-theme="light"][data-accent="azure"] {
+  --copper: #2470b3; --copper-dim: #7cadd6; --copper-glow: rgba(36, 112, 179, 0.14);
+  --copper-hover: #1b5b93; --on-accent: #ffffff;
+}
+:root[data-theme="light"][data-accent="violet"] {
+  --copper: #6d4fc0; --copper-dim: #a794d6; --copper-glow: rgba(109, 79, 192, 0.14);
+  --copper-hover: #5a3fa3; --on-accent: #ffffff;
 }
 
 * { box-sizing: border-box; }
@@ -33,6 +93,7 @@ html, body {
   font-size: 14px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  transition: background 220ms ease, color 220ms ease;
 }
 
 #app { height: 100%; }
@@ -62,10 +123,10 @@ button:disabled { opacity: 0.45; cursor: default; }
 button.primary {
   background: var(--copper);
   border-color: var(--copper);
-  color: #1a1208;
+  color: var(--on-accent);
   font-weight: 600;
 }
-button.primary:hover { background: #eeb173; }
+button.primary:hover { background: var(--copper-hover); }
 button.ghost { background: transparent; border-color: transparent; color: var(--muted); }
 button.ghost:hover { color: var(--ink); border-color: var(--line-bright); }
 button.danger { color: var(--red); border-color: var(--line-bright); }
