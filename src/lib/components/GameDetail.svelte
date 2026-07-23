@@ -8,7 +8,6 @@
     presetsFor,
     recommendedPreset,
     versionCmp,
-    type BenchRecord,
     type Family,
     type Game,
     type GamePresets,
@@ -49,38 +48,8 @@
     }).catch(() => { presets = { available: false, exe: null, sr: null, rr: null }; });
   });
 
-  // ---- before/after proof ----------------------------------------------------
-  let benches = $state<BenchRecord[]>([]);
-  let benching = $state(false);
-
-  $effect(() => {
-    const id = game.id;
-    benches = [];
-    api.getBenchmarks(id).then((b) => {
-      if (id === game.id) benches = b;
-    }).catch(() => {});
-  });
-
-  async function runBench() {
-    benching = true;
-    app.toast("ok", "Capturing 30 seconds of frametimes — keep playing…");
-    try {
-      benches = await api.runBenchmark(game.id, 30);
-    } catch (e) {
-      app.toast("err", String(e));
-    } finally {
-      benching = false;
-    }
-  }
-
-  const benchDelta = $derived.by(() => {
-    if (benches.length < 2) return null;
-    const [after, before] = benches;
-    return {
-      avg: after.avg_fps - before.avg_fps,
-      low: after.low_1pct - before.low_1pct,
-    };
-  });
+  // Before/after proof (frametime capture) is temporarily disabled in the UI
+  // while the capture path is being reworked; backend commands remain.
 
   async function applyPreset(family: Family) {
     applyingPreset = true;
@@ -361,43 +330,6 @@
       {/if}
     </section>
   {/each}
-
-  <section>
-    <div class="fam-head">
-      <h3>Proof</h3>
-      <span class="hint">frametime capture via Intel PresentMon</span>
-    </div>
-    <div class="bench-actions">
-      <button class="primary" disabled={benching} onclick={runBench}>
-        {benching ? "Capturing… keep playing (30 s)" : "Run 30 s benchmark"}
-      </button>
-      <span class="hint">Start the game first. Elevation is required for the capture.</span>
-    </div>
-    {#if benchDelta}
-      {@const up = benchDelta.avg >= 0}
-      <p class="bench-delta" class:up class:down={!up}>
-        Latest vs previous: {up ? "+" : ""}{benchDelta.avg.toFixed(1)} avg fps,
-        {benchDelta.low >= 0 ? "+" : ""}{benchDelta.low.toFixed(1)} on 1% lows
-      </p>
-    {/if}
-    {#if benches.length > 0}
-      <table class="bench-table">
-        <thead><tr><th>when</th><th>avg fps</th><th>1% low</th><th>frames</th></tr></thead>
-        <tbody>
-          {#each benches.slice(0, 8) as b (b.id)}
-            <tr>
-              <td class="mono">{new Date(b.at).toLocaleString()}</td>
-              <td class="mono">{b.avg_fps.toFixed(1)}</td>
-              <td class="mono">{b.low_1pct.toFixed(1)}</td>
-              <td class="mono">{b.frames}</td>
-            </tr>
-          {/each}
-        </tbody>
-      </table>
-    {:else}
-      <p class="none">No captures yet. Benchmark before and after a swap or preset change to see the difference in numbers.</p>
-    {/if}
-  </section>
 </aside>
 
 <style>
@@ -517,16 +449,6 @@
   .preset { color: var(--mint); }
   .issue { color: var(--amber); }
   .actions, .confirm { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-  .bench-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 8px 0; }
-  .bench-delta { font-size: 13px; margin: 6px 0; }
-  .bench-delta.up { color: var(--mint); }
-  .bench-delta.down { color: var(--amber); }
-  .bench-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 6px; }
-  .bench-table th {
-    text-align: left; color: var(--faint); font-weight: 500;
-    border-bottom: 1px solid var(--line); padding: 4px 8px 4px 0;
-  }
-  .bench-table td { padding: 4px 8px 4px 0; border-bottom: 1px solid var(--line); }
   .confirm p { margin: 0; color: var(--amber); font-size: 13px; flex-basis: 100%; }
   .restore { margin-top: 10px; }
 </style>

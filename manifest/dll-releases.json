@@ -1,11 +1,11 @@
 {
- "$comment": "Uplift releases manifest — every build in the community archive. Each entry carries the SHA-256 of the final DLL file; the app refuses any download whose hash does not match. Zips are assets of the dll-archive GitHub release.",
+ "$comment": "Uplift releases manifest — every consumer/production build in the community archive (development DLLs that render an on-screen watermark are excluded). Each entry carries the SHA-256 of the final DLL file; the app refuses any download whose hash does not match. Zips are assets of the dll-archive GitHub release.",
  "releases": [
   {
    "family": "dlss",
    "version": "310.7.0.0",
    "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v310.7.0.0.zip",
-   "sha256": "1cdfdc957cb7fc9805500ca6793f607ef2d4dbd7c967feac70aca9caf382d0c0",
+   "sha256": "be6e434a94ca32499515eb62ca0e6c274526055d568d0426e4c652dcdfb6ee6e",
    "zip_path": "nvngx_dlss.dll",
    "release_date": "2026-05-15"
   },
@@ -21,7 +21,7 @@
    "family": "dlss",
    "version": "310.5.3.0",
    "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v310.5.3.0.zip",
-   "sha256": "cb74fff91fcd5f72799b64b4e547c54858ddbeb1b2a09878474fecbbb760c559",
+   "sha256": "8707e53b26c68c606b98bf31c223485ff30d310a261b1a36d48b2eaabc1507ec",
    "zip_path": "nvngx_dlss.dll",
    "release_date": "2026-01-21"
   },
@@ -37,7 +37,7 @@
    "family": "dlss",
    "version": "310.5.0.0",
    "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v310.5.0.0.zip",
-   "sha256": "415caad13264b2d96a74f6ed3e204aedd6f3e304945aecae6036b2e56fcd2054",
+   "sha256": "22c4660249da5b352cde0ce4d95178c3761223dd6ac096d0b88e5c03d7a5cdd1",
    "zip_path": "nvngx_dlss.dll",
    "release_date": "2025-12-20"
   },
@@ -45,7 +45,7 @@
    "family": "dlss",
    "version": "310.4.0.0",
    "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v310.4.0.0.zip",
-   "sha256": "6a1b1bfd111009ede953ba28268ee00c56223b0f9ceb707aa1ee7e17569febd6",
+   "sha256": "e88a27b9629c1cd3a51bf25c605def1798c44d038267c520830e23d5959c985b",
    "zip_path": "nvngx_dlss.dll",
    "release_date": "2025-08-12"
   },
@@ -53,7 +53,7 @@
    "family": "dlss",
    "version": "310.3.0.0",
    "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_v310.3.0.0.zip",
-   "sha256": "faa14a92f5c60b124147bbda8374837e1769e8f9e6301293d613ad753a22b599",
+   "sha256": "1d75e7c1f37f966517f625aa3cc9602ff89d42ad2a7fcbdfa5fc91dab4674149",
    "zip_path": "nvngx_dlss.dll",
    "release_date": "2025-05-08"
   },
@@ -637,7 +637,7 @@
    "family": "dlss_g",
    "version": "310.5.3.0",
    "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_g_v310.5.3.0.zip",
-   "sha256": "de08ff18dfb4d2ffe1f20bf1f689a1d4e18098a91e5eb2e4849480cd98fb305f",
+   "sha256": "ddf098c04c22a058893a05f442d8836439603280a27bcf254b9b218ee640a126",
    "zip_path": "nvngx_dlssg.dll",
    "release_date": "2026-01-21"
   },
@@ -669,7 +669,7 @@
    "family": "dlss_g",
    "version": "310.3.0.0",
    "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_g_v310.3.0.0.zip",
-   "sha256": "5446a1c459873481acb756374a555d71de16e617166d471b798502d2f2318ede",
+   "sha256": "0a6212a33ebaa708e7907468db7345c92cfdc6f8dd29c6e1248f32dbea4bcdaf",
    "zip_path": "nvngx_dlssg.dll",
    "release_date": "2025-05-08"
   },
@@ -853,7 +853,7 @@
    "family": "dlss_d",
    "version": "310.7.0.0",
    "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_d_v310.7.0.0.zip",
-   "sha256": "fd83687c98d00754ae8e26b5daa7dabfed04557113c69c9eddfe4b6f3acaf426",
+   "sha256": "f4e97624f70fbb769acb11ebd751b512ecc9463d4bd6aef04896d3956e6084a0",
    "zip_path": "nvngx_dlssd.dll",
    "release_date": "2026-05-14"
   },
@@ -885,7 +885,7 @@
    "family": "dlss_d",
    "version": "310.5.0.0",
    "url": "https://github.com/JorreFog/uplift/releases/download/dll-archive/dlss_d_v310.5.0.0.zip",
-   "sha256": "1c4404ae3d9ac8997e891e7ceea311f82fee9e69956c2ffe4e5cf6de971ec07e",
+   "sha256": "4d53f6114edc61bd41fc293008aa818ab092bb8286830e61c98453da92d936d0",
    "zip_path": "nvngx_dlssd.dll",
    "release_date": "2025-11-29"
   },

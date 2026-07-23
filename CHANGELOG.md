@@ -3,6 +3,18 @@
 All notable changes to Uplift. Format loosely follows
 [Keep a Changelog](https://keepachangelog.com/); versions follow semver.
 
+## [0.4.1] - 2026-07-15
+
+### Fixed
+- **Production DLLs only** — the release manifest previously included some of
+  NVIDIA's development DLSS builds, which render an on-screen debug watermark
+  in-game. All development DLLs are now excluded; every version is still
+  available as its consumer/production build (no versions lost).
+
+### Changed
+- The before/after benchmark (Proof) panel is temporarily hidden while the
+  frametime-capture path is reworked.
+
 ## [0.4.0] - 2026-07-15
 
 ### Added
